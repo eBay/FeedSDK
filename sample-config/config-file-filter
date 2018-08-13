@@ -1,0 +1,15 @@
+{
+  "requests" :
+  [
+    {
+      "filterRequest": {
+      "inputFilePath": "<Absolute file path to unzipped file>",
+        "leafCategoryIds":["617"],
+        "itemLocationCountries":["US", "CN"],
+        "priceLowerLimit":90.0,
+        "priceUpperLimit":95.0,
+        "inferredEpids": ["239244143"]
+      }
+      }
+    ]
+}

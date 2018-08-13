@@ -1,0 +1,82 @@
+{
+  "requests" :
+  [
+  {
+      "feedRequest" : {
+        "categoryId":"293",
+        "marketplaceId":"EBAY-US",
+        "date":"20180708",
+        "feedScope":"ALL_ACTIVE",
+        "type":"ITEM"
+      },
+      "filterRequest": {
+        "sellerNames":["andy14nq", "gigaparts"],
+        "itemLocationCountries":["US", "CN"],
+        "priceLowerLimit":10.0,
+        "priceUpperLimit":100.0
+      }
+    },
+    {
+      "feedRequest" : {
+        "categoryId":"1",
+        "marketplaceId":"EBAY-US",
+        "date":"20180708",
+        "feedScope":"ALL_ACTIVE",
+        "type":"ITEM"
+      },
+      "filterRequest": {
+        "leafCategoryIds":["11675", "3226"],
+        "itemLocationCountries":["US", "CN"],
+        "priceLowerLimit":10.0,
+        "priceUpperLimit":100.0
+      },
+      "levelThreeCategories":["1313", "13583", "39"]
+    },
+    {
+      "feedRequest" : {
+        "categoryId":"1281",
+        "marketplaceId":"EBAY-US",
+        "date":"20180708",
+        "feedScope":"ALL_ACTIVE",
+        "type":"ITEM"
+      },
+      "filterRequest": {
+        "leafCategoryIds":["63057", "63057", "177798"],
+        "itemLocationCountries":["CN"],
+        "priceLowerLimit":10.0,
+        "priceUpperLimit":50.0
+      },
+      "levelThreeCategories":["177792"]
+
+    },
+     {
+      "feedRequest" : {
+        "categoryId":"11232",
+        "marketplaceId":"EBAY-US",
+        "date":"20180708",
+        "feedScope":"ALL_ACTIVE",
+        "type":"ITEM"
+      },
+      "filterRequest": {
+        "leafCategoryIds":["617", "617"],
+        "itemLocationCountries":["US"],
+        "priceLowerLimit":10.0,
+        "priceUpperLimit":20.0
+      }},
+      {
+      "feedRequest" : {
+        "categoryId":"220",
+        "marketplaceId":"EBAY-US",
+        "date":"20180708",
+        "feedScope":"ALL_ACTIVE",
+        "type":"ITEM"
+      },
+      "filterRequest": {
+        "leafCategoryIds":["122569", "2537", "34061", "34061"],
+        "itemLocationCountries":["CN"],
+        "priceLowerLimit":20.0,
+        "priceUpperLimit":40.0
+      }
+    }
+    ]
+}
