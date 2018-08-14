@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/eBay/FeedSDK.svg?branch=master)](https://travis-ci.org/eBay/FeedSDK)
+
 Feed SDK
 ==========
 Java SDK for downloading and filtering item feed files
