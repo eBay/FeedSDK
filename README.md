@@ -14,21 +14,21 @@ Table of contents
 * [Filtering feed files](#filtering-feed-files)
     - [Available filters](#available-filters)
     - [Combining filter criteria](#combining-filter-criteria)
-    - [Filtering by level two category id](#filtering-by-l2-category-id)
-    - [Filtering by level three category id](#filtering-by-l3-category-id)
+    - [Filtering by level two category id](#filtering-by-level-two-category-id)
+    - [Filtering by level three category id](#filtering-by-level-three-category-id)
 * [Schemas](#schemas)
-    - [GetFeedResponse](#getFeedResponse)
+    - [GetFeedResponse](#getfeedresponse)
     - [Response](#response)
 * [Logging](#logging)
     - [Customizing log file location](#customizing-log-file-location)
 * [Usage](#usage)
-    - [Using java method calls](#using-java-method-calls)
-        - [Code samples](#examples)
     - [Using command line options](#using-command-line-options)
     - [Using config file driven approach](#using-config-file-driven-approach)
+    - [Using java method calls](#using-java-method-calls)
+        - [Code samples](#examples)
 * [Performance](#performance)
 * [Important notes](#important-notes)
-* [License](#License)
+* [License](#license)
 
 # Summary
 
@@ -225,63 +225,50 @@ For example, to change the log file location to __/var/log__
 
 The following sections describe the different ways in which the SDK can be used
 
-### Using java method calls
-
-Samples showing the usage of available operations and filters.
-
-#### Examples
-
-All the examples are located [__here__](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example)
-
-* [Filter by item location](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
-* [Filter by leaf categories](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
-* [Filter by price](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByPrice.java)
-* [Filter by seller user names](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
-* [Combining multiple filters](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/CombiningFilters.java)
-* [Filter on level three category](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
-* [Filter on EPID](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEpids.java)
-* [Filter on GTIN](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByGtins.java)
-* [Filter on item IDs](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
-
-
-
 ### Using command line options
 
 All the capabilities of the SDK can be invoked using the command line.
 
 To see the available options and filters , use '-help'
 ```
-java -jar ebay-feed-sdk-v1-beta.jar -help
+java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -help
 usage: Feed SDK CLI
- -help               display help
- -dt <arg>           the date when feed file was generated
- -c1 <arg>           the l1 category id of the feed file
- -scope <arg>        the feed scope. Available scopes are ALL_ACTIVE or
-                     NEWLY_LISTED
- -mkt <arg>          the marketplace id for which feed is being requested
-                     For example - EBAY-US
- -token <arg>        the oauth token for the consumer. Omit the word
-                     'Bearer'
- -f,--filelocation   override for changing the directory where files are
-                     downloaded
- -c2f <arg>          list of l2 categories which are used to filter the
-                     feed
- -c3f <arg>          list of l3 categories which are used to filter the
-                     feed
- -lf <arg>           list of leaf categories which are used to filter the
-                     feed
- -sellerf <arg>      list of seller names which are used to filter the
-                     feed
- -locf <arg>         list of item locations which are used to filter the
-                     feed
- -pricelf <arg>      lower limit of the price range for items in the feed
- -priceuf <arg>      upper limit of the price range for items in the feed
- -epidf <arg>        list of epids which are used to filter the feed
- -iepidf <arg>       list of inferred epids which are used to filter the
-                     feed
- -gtinf <arg>        list of gtins which are used to filter the feed
- -itemf <arg>        list of item ids which are used to filter the feed
-
+ -help                             display help
+ -dt <arg>                         the date when feed file was generated
+ -c1 <arg>                         the l1 category id of the feed file
+ -scope <arg>                      the feed scope. Available scopes are
+                                   ALL_ACTIVE or NEWLY_LISTED
+ -mkt <arg>                        the marketplace id for which feed is
+                                   being request. For example - EBAY-US
+ -token <arg>                      the oauth token for the consumer. Omit
+                                   the word 'Bearer'
+ -c2f <arg>                        list of l2 categories which are used to
+                                   filter the feed
+ -c3f <arg>                        list of l3 categories which are used to
+                                   filter the feed
+ -lf <arg>                         list of leaf categories which are used
+                                   to filter the feed
+ -sellerf <arg>                    list of seller names which are used to
+                                   filter the feed
+ -locf <arg>                       list of item locations which are used
+                                   to filter the feed
+ -pricelf <arg>                    lower limit of the price range for
+                                   items in the feed
+ -priceuf <arg>                    upper limit of the price range for
+                                   items in the feed
+ -epidf <arg>                      list of epids which are used to filter
+                                   the feed
+ -iepidf <arg>                     list of inferred epids which are used
+                                   to filter the feed
+ -gtinf <arg>                      list of gtins which are used to filter
+                                   the feed
+ -itemf <arg>                      list of item ids which are used to
+                                   filter the feed
+ -dl,--downloadlocation <arg>      override for changing the directory
+                                   where files are downloaded
+ -cl,--credentiallocation <arg>    directory where the credentials file is
+                                   located
+ -authscopes,--oauthscopes <arg>   list of scopes
 
 ```
 
@@ -332,6 +319,25 @@ An example of using the SDK through a config file is located at
 [Example config file - 1](https://github.corp.ebay.com/globalcommerce/FeedSDK/blob/master/sample-config/config-file-download-unzip-filter)
 
 [Example config file - 2](https://github.corp.ebay.com/globalcommerce/FeedSDK/blob/master/sample-config/config-file-filter)
+
+### Using java method calls
+
+Samples showing the usage of available operations and filters.
+
+#### Examples
+
+All the examples are located [__here__](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example)
+
+* [Filter by item location](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
+* [Filter by leaf categories](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
+* [Filter by price](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByPrice.java)
+* [Filter by seller user names](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
+* [Combining multiple filters](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/CombiningFilters.java)
+* [Filter on level three category](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
+* [Filter on EPID](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEpids.java)
+* [Filter on GTIN](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByGtins.java)
+* [Filter on item IDs](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
+
 
 ---
 ## Performance
