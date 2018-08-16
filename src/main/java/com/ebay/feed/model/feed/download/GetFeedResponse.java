@@ -19,34 +19,32 @@ import com.ebay.feed.model.error.ErrorData;
 import com.ebay.feed.model.feed.operation.filter.Response;
 
 /**
- * <p>
- * Container for capturing method output. <br/>
+ * <div>
+ * Container for capturing method output. <br>
  * <b>statusCode</b>
  * <ul>
  * <li>0 - Success</li>
  * <li>-1 - Failure</li>
  * <li>null - Failure</li>
  * </ul>
- * 
- * <br/>
+ * <br>
  * <b>message</b>
  * <ul>
  * <li>
  * null - Failure non null value - Description of the operation result</li>
  * </ul>
- * 
- * <br/>
+ * <br>
  * <b>filePath</b>
  * <ul>
+ *     <li>
  * null - Failure non null value - Path of the file that was created as a result of this operation
+ * </li>
  * </ul>
- * 
- * <br/>
+ * <br>
  * <b>appliedFilters</b> - List of all the filters that were applied
- * 
- * <br/>
+ * <br>
  * <b>errors</b> - List of errors returned by the API
- * </p>
+ * </div>
  * 
  * @author shanganesh
  *

@@ -27,11 +27,11 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 /**
  * <p>
  * Example showing how to download and filter feed files based on item price. The download location
- * is default - current working directory <br/>
- * The filtering is performed on the unzipped file. <br/>
- * So the sequence of events that are followed is :- <br/>
- * - Download feed file <br/>
- * - Unzip feed file <br/>
+ * is default - current working directory <br>
+ * The filtering is performed on the unzipped file. <br>
+ * So the sequence of events that are followed is :- <br>
+ * - Download feed file <br>
+ * - Unzip feed file <br>
  * - Filter feed file
  * </p>
  * 

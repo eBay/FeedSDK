@@ -19,20 +19,20 @@ import java.util.Set;
 import com.ebay.feed.constants.Constants;
 
 /**
- * <p>
- * Container for available filters for feed files<br/>
+ * <div>
+ * Container for available filters for feed files<br>
  * <ul>
  * <li><b>levelOneCategory</b> - The level one category of the feed file, on which the filter is
  * being applied</li>
  * <li><b>marketplace</b> - The marketplace id for the feed file</li>
- * <li><b>token</b> - OAuth token</li> *
+ * <li><b>token</b> - OAuth token</li>
  * <li></li>
- * <li><b>leafCategoryIds</b> - Set of leaf category ids</li> *
+ * <li><b>leafCategoryIds</b> - Set of leaf category ids</li>
  * <li></li>
- * <li><b>sellerNames</b> - Set of seller names</li> *
+ * <li><b>sellerNames</b> - Set of seller names</li>
  * <li></li>
  * <li><b>itemLocationCountries</b> - Set of item location countries in ISO 3166-1 alpha-2 format</li>
- * *
+ *
  * <li></li>
  * <li><b>priceLowerLimit</b> - Lower limit of price range</li>
  * <li><b>priceUpperLimit</b> - upper limit of price range</li>
@@ -43,7 +43,7 @@ import com.ebay.feed.constants.Constants;
  * <li><b>gtins</b> - Set of gtins for filtering</li>
  * <li><b>itemIds</b> - Set of item ids for filtering</li>
  * </ul>
- * </p>
+ * </div>
  * 
  * @author shanganesh
  *
@@ -173,7 +173,7 @@ public class FeedFilterRequest {
   /**
    * Check if this instance is empty
    * 
-   * @return
+   * @return Returns true if the instance is empty
    */
   public boolean isEmpty() {
     boolean isEmpty = false;

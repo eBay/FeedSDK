@@ -17,6 +17,8 @@ package com.ebay.feed.auth;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import com.ebay.feed.example.CombiningFilters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.ebay.api.client.auth.oauth2.CredentialUtil;
@@ -56,7 +58,7 @@ public class CredentialLoader {
    * Loads the credentials provided in the config file
    * </p>
    * 
-   * @throws Exception
+   * @throws Exception Thrown if file is not found or credentials are invalid
    */
   public void loadCredentials() throws Exception {
 
@@ -82,8 +84,8 @@ public class CredentialLoader {
    * Generates oauth token, based on the loaded credentials
    * </p>
    * 
-   * @return
-   * @throws IOException
+   * @return Returns the OAuthResponse which contains the token
+   * @throws IOException Thrown if file is not found
    */
   public OAuthResponse getOauthResponse() throws IOException {
 

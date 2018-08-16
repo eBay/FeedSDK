@@ -19,7 +19,7 @@ import com.ebay.feed.model.feed.operation.taxonomy.CategoryResponse;
 
 
 /**
- * <p>
+ * <div>
  * Taxonomy interface which consists of the following capabilities
  * <ul>
  * <li>
@@ -32,7 +32,7 @@ import com.ebay.feed.model.feed.operation.taxonomy.CategoryResponse;
  * </li>
  *  
  * </ul>
- * </p>
+ * </div>
  * @author shanganesh
  *
  */
@@ -46,8 +46,7 @@ public interface Taxonomy {
    * 
    * @param token OAUth token
    * @param marketplaceId A string representing the marketplace : EBAY-US
-   * @return
-   * @throws IOException
+   * @return string The category tree id for the marketplace
    */
   public String getCategoryTreeId(String token, String marketplaceId);
 
@@ -62,8 +61,7 @@ public interface Taxonomy {
    * @param token OAUth token
    * @param categoryTreeId The category tree id for the marketplace
    * @param categoryId - Level one category id
-   * @return
-   * @throws IOException
+   * @return The category response for the marketplace and category id
    */
   public CategoryResponse loadLeafCategories(String token, String categoryTreeId, String categoryId);
 

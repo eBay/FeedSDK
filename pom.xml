@@ -24,6 +24,12 @@
 	<packaging>jar</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>eBay Feed SDK helps in downloading and filtering feed files</description>
+	<url>https://github.com/eBay/FeedSDK</url>
+	<scm>
+		<connection>scm:git:git@github.com:eBay/FeedSDK.git</connection>
+		<url>https://github.com/eBay/FeedSDK</url>
+		<tag>HEAD</tag>
+	</scm>
 
 	<developers>
 		<developer>
@@ -171,12 +177,12 @@
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.8</version>
+						<version>1.6.7</version>
 						<extensions>true</extensions>
 						<configuration>
 							<serverId>ossrh</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
 					</plugin>
 					<plugin>

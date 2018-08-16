@@ -31,16 +31,16 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 /**
  * <p>
  * Example showing how to download and filter feed files based on L3 category ids. The download
- * location is default - current working directory <br/>
+ * location is default - current working directory <br>
  * 
- * To filter on L3 category, the mapping between L3 -> leaf category ids needs to be loaded. Once
+ * To filter on L3 category, the mapping between L3 to leaf category ids needs to be loaded. Once
  * the mapping is loaded, the operation translates to actually filtering the feed files on leaf
  * category ids, which belong to the L3 category id.
  * 
- * The filtering is performed on the unzipped file. <br/>
- * So the sequence of events that are followed is :- <br/>
- * - Download feed file <br/>
- * - Unzip feed file <br/>
+ * The filtering is performed on the unzipped file. <br>
+ * So the sequence of events that are followed is :- <br>
+ * - Download feed file <br>
+ * - Unzip feed file <br>
  * - Filter feed file
  * </p>
  * 

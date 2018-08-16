@@ -29,16 +29,16 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 /**
  * <p>
  * Example showing how to download and filter feed files based on a combination of filter criteria
- * The download location is default - current working directory <br/>
+ * The download location is default - current working directory <br>
  * This example downloads the bootstrap feed file for L1 category : 1 (Collectibles) and filters on
- * :-<br/>
- * - leaf categories <br/>
- * - price <br/>
- * - item location <br/>
- * The filtering is performed on the unzipped file. <br/>
- * So the sequence of events that are followed is :- <br/>
- * - Download feed file <br/>
- * - Unzip feed file <br/>
+ * :-<br>
+ * - leaf categories <br>
+ * - price <br>
+ * - item location <br>
+ * The filtering is performed on the unzipped file. <br>
+ * So the sequence of events that are followed is :- <br>
+ * - Download feed file <br>
+ * - Unzip feed file <br>
  * - Filter feed file
  * </p>
  * 

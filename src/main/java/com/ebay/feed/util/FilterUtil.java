@@ -48,9 +48,10 @@ public class FilterUtil {
    * Apply the filters to the contents specified in the baseFilePath
    * </p>
    * 
-   * @param baseFilePath
-   * @param filterRequest
-   * @return
+   * @param baseFilePath Path to the unzipped feed file
+   * @param filterRequest Container for capturing the filter parameters
+   * @return string The path of the filtered file
+   * @throws Exception exception
    */
   public String filter(Path baseFilePath, FeedFilterRequest filterRequest) throws Exception {
 
@@ -87,23 +88,24 @@ public class FilterUtil {
 
 
   /**
-   * <p>
-   * Evaluate the provided conditions The column number passed as a parameter to the 'evaluateField'
-   * method, represents the column number in the actual file in the response.
-   * <ul>
-   * <li>4 - category id</li>
-   * <li>6 - seller user name</li>
-   * <li>21 - item location country</li>
-   * <li>12 - epid</li>
-   * <li>40 - inferred epid</li>
-   * <li>9 - gtin</li>
-   * <li>0 - item id</li>
-   * </ul>
-   * </p>
+   *
+    <div>
+    Evaluate the provided conditions The column number passed as a parameter to the 'evaluateField'
+    method, represents the column number in the actual file in the response.
+    <ul>
+    <li>4 - category id</li>
+    <li>6 - seller user name</li>
+    <li>21 - item location country</li>
+    <li>12 - epid</li>
+    <li>40 - inferred epid</li>
+    <li>9 - gtin</li>
+    <li>0 - item id</li>
+    </ul>
+    </div>
    * 
-   * @param line
-   * @param filterRequest
-   * @return
+   * @param line One record from the feed file
+   * @param filterRequest Container for capturing the filter parameters
+   * @return boolean Indicates whether any filters apply to this record
    */
   protected boolean evaluate(String[] line, FeedFilterRequest filterRequest) {
     return evaluateField(line, filterRequest.getLeafCategoryIds(), 4)
@@ -121,8 +123,8 @@ public class FilterUtil {
    * Evaluate if the line is a headerline
    * </p>
    * 
-   * @param line
-   * @return
+   * @param line One record from the feed file
+   * @return boolean Checks if the line is a header line
    */
   private boolean evaluateHeader(String[] line) {
     return line[0].contains(Constants.ITEM_ID);
@@ -134,9 +136,9 @@ public class FilterUtil {
    * than given limit
    * </p>
    * 
-   * @param line
-   * @param filterRequest
-   * @return
+   * @param line One record from the feed file
+   * @param filterRequest Container for capturing the filter parameters
+   * @return boolean Checks if the price filter applies to this item
    */
   private boolean evaluateItemPrice(String[] line, FeedFilterRequest filterRequest) {
 
@@ -186,9 +188,9 @@ public class FilterUtil {
    * This method is generic for handling filtering on 'set of string' filters.
    * </p>
    * 
-   * @param line
-   * @param filterSet
-   * @param column
+   * @param line One record from the feed file
+   * @param filterSet Set of filters
+   * @param column Column to filter on
    * @return
    */
   private boolean evaluateField(String[] line, Set<String> filterSet, Integer columnNo) {
@@ -217,8 +219,8 @@ public class FilterUtil {
    * Generate filtered file name based on base file path and timestamp
    * </p>
    * 
-   * @param baseFilePath
-   * @param filterRequest
+   * @param baseFilePath Path of the unzipped file
+   * @param filterRequest Container for capturing the filter parameters
    * @return
    */
   private String getFilteredFileName(Path baseFilePath, FeedFilterRequest filterRequest) {
@@ -233,8 +235,8 @@ public class FilterUtil {
    * 
    * </p>
    * 
-   * @param filterRequest
-   * @return
+   * @param filterRequest Container for capturing the filter parameters
+   * @return Set of leaf categories
    */
   public Set<String> calculateLeaves(FeedFilterRequest filterRequest) {
 
@@ -278,9 +280,9 @@ public class FilterUtil {
    * Get map of leaf categories
    * </p>
    * 
-   * @param map
-   * @param catSet
-   * @return
+   * @param map Map of level one to children categories
+   * @param catSet Set of leaf categories
+   * @return Set of leaf categories
    */
   private Set<String> getLeafCategories(Map<String, Set<String>> map, Set<String> catSet) {
     Set<String> leafCategorySet = new HashSet<>();
@@ -292,9 +294,9 @@ public class FilterUtil {
 
   /**
    * 
-   * @param colNo
-   * @param len
-   * @return
+   * @param colNo Column number from the feed file
+   * @param len Total number of columns
+   * @return boolean Indicates whether the column number is valid
    */
   private boolean isColumnValid(int colNo, int len) {
     return colNo < len;

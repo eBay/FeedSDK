@@ -19,17 +19,17 @@ import com.ebay.feed.constants.Constants;
 import com.ebay.feed.enums.FeedTypeEnum;
 
 /**
- * <p>
- * Request parameters for invoking feed API <br/>
- * <ul>
- * <li><b>categoryId</b> - The level one category id of the feed file</li>
- * <li><b>marketplaceId</b> - The marketplace id for the feed file Eg EBAY-US</li>
- * <li><b>date</b> - The date parameter for the feed file. Optional for bootstrap feed files</li>
- * <li><b>feedScope</b> - Scope of the feed file - ALL_ACTIVE or NEWLY_LISTED</li>
- * <li><b>token</b> - OAuth token</li>
- * <li><b>type</b> - Currently supported - ITEM</li>
- * </ul>
- * </p>
+ * <div>
+  Request parameters for invoking feed API <br>
+  <ul>
+  <li><b>categoryId</b> - The level one category id of the feed file</li>
+  <li><b>marketplaceId</b> - The marketplace id for the feed file Eg EBAY-US</li>
+  <li><b>date</b> - The date parameter for the feed file. Optional for bootstrap feed files</li>
+  <li><b>feedScope</b> - Scope of the feed file - ALL_ACTIVE or NEWLY_LISTED</li>
+  <li><b>token</b> - OAuth token</li>
+  <li><b>type</b> - Currently supported - ITEM</li>
+  </ul>
+  </div>
  * @author shanganesh
  *
  */

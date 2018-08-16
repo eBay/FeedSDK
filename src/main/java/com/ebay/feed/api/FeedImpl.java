@@ -44,15 +44,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
- * <p>
- * Concrete implementation which consists of the core capabilities of the SDK.<br/>
+ * <div>
+ * Concrete implementation which consists of the core capabilities of the SDK.<br>
  * <ul>
  * <li>get - To download the feed files</li>
  * <li>unzip - To unzip the gzipped files filter</li>
  * <li>filter - To apply filters to the unzipped file and create a new file with the filtered
  * contents</li>
  * </ul>
- * </p>
+ * </div>
  * 
  * @author shanganesh
  *

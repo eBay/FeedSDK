@@ -16,32 +16,29 @@ package com.ebay.feed.model.feed.operation.filter;
 
 
 /**
- * <p>
- * Container for capturing method output. <br/>
+ * <div>
+ * Container for capturing method output. <br>
  * <b>statusCode</b>
  * <ul>
  * <li>0 - Success</li>
  * <li>-1 - Failure</li>
  * <li>null - Failure</li>
  * </ul>
- * 
- * <br/>
+ * <br>
  * <b>message</b>
  * <ul>
  * <li>
  * null - Failure non null value - Description of the operation result</li>
  * </ul>
- * 
- * <br/>
+ * <br>
  * <b>filePath</b>
  * <ul>
- * null - Failure non null value - Path of the file that was created as a result of this operation
+ * <li>null - Failure non null value - Path of the file that was created as a result of this operation</li>
  * </ul>
- * 
- * <br/>
+ * <br>
  * <b>appliedFilters</b> - List of all the filters that were applied
  * 
- * </p>
+ * </div>
  * 
  * @author shanganesh
  *
@@ -88,9 +85,9 @@ public class Response {
   /**
    * 
    * @param statusCode 0 success
-   * @param message
-   * @param filePath
-   * @param appliedFilters
+   * @param message Detailed message regarding the error
+   * @param filePath In case of success, the path to the resulting file
+   * @param appliedFilters Applied filters
    */
   public Response(Integer statusCode, String message, String filePath,
       FeedFilterRequest appliedFilters) {

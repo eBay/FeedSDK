@@ -45,8 +45,8 @@ public class FeedUtil {
    * Generate URL based on the feed request values
    * </p>
    * 
-   * @param feedRequest
-   * @return
+   * @param feedRequest Container for capturing parameters related to downloading and unzipping feed files
+   * @return string Creates a url for invoking feed api, based on the inputs
    */
   protected String getFinalUrl(FeedRequest feedRequest) {
 
@@ -79,9 +79,9 @@ public class FeedUtil {
    * Generate request instance for the feed API call
    * </p>
    * 
-   * @param feedRequest
-   * @param requestBuilder
-   * @return
+   * @param feedRequest Container for capturing parameters related to downloading and unzipping feed files
+   * @param requestBuilder Returns a builder
+   * @return RequestBuilder Returns a builder
    */
   public Request.Builder generateRequest(FeedRequest feedRequest, Request.Builder requestBuilder) {
     // static headers
@@ -98,11 +98,10 @@ public class FeedUtil {
   }
 
   /**
-   * <p>
-   * Generate file name for the downloaded file
-   * </p>
-   * 
-   * @return
+   * <p>Generates a file name based on the input parameters</p>
+   *
+   * @param feedRequest Container for capturing parameters related to downloading and unzipping feed files
+   * @return  string Generates a filename based on the feed type, scope, category, marketplace and date
    */
   public String generateFileName(FeedRequest feedRequest) {
 
@@ -121,19 +120,13 @@ public class FeedUtil {
 
   /**
    * <p>
-   * Unzips a file and creates a new file and returns the path Returns null in case of errors
+   *  Unzips a file and creates a new file and returns the path Returns null in case of errors
    * </p>
-   * 
-   * @param path
-   * @param keepOriginal
-   * @return
-   * @throws InvalidExitValueException
-   * @throws IOException
-   * @throws InterruptedException
-   * @throws TimeoutException
+   * @param path Path to the downloaded compressed feed file
+   * @return string Path to the unzipped file
+   * @throws Exception Exception
    */
-  public String unzip(Path path) throws IOException,
-      InterruptedException, TimeoutException {
+  public String unzip(Path path) throws Exception {
 
     if (path == null)
       return null;

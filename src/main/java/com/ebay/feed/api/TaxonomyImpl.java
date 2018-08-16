@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
- * <p>
+ * <div>
  * Taxonomy implementation which consists of the following capabilities
  * <ul>
  * <li>
@@ -45,7 +45,7 @@ import com.google.gson.JsonParser;
  * categories</li>
  * 
  * </ul>
- * </p>
+ * </div>
  * 
  * @author shanganesh
  *
@@ -234,9 +234,8 @@ public class TaxonomyImpl implements Taxonomy {
    * Recursively traverses through nodes to find out the leaf node and adds to list
    * </p>
    * 
-   * @param node
-   * @param list
-   * @return
+   * @param node Subtree node
+   * @return Set of leaf category ids
    */
   private Set<String> getLeaf(CategorySubtreeNode node, Set<String> leafSet) throws Exception {
 

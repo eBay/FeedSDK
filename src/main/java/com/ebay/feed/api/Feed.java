@@ -21,15 +21,15 @@ import com.ebay.feed.model.feed.operation.filter.FeedFilterRequest;
 import com.ebay.feed.model.feed.operation.filter.Response;
 
 /**
- * <p>
- * Feed interface which consists of the core capabilities of the SDK.<br/>
+ * <div>
+ * Feed interface which consists of the core capabilities of the SDK.<br>
  * <ul>
  * <li>get - To download the feed files</li>
  * <li>unzip - To unzip the gzipped files filter</li>
  * <li>filter - To apply filters to the unzipped file and create a new file with the filtered
  * contents</li>
  * </ul>
- * </p>
+ * </div>
  * 
  * @author shanganesh
  *
@@ -41,8 +41,8 @@ public interface Feed {
    * Filters the contents of an unzipped feed file
    * </p>
    * 
-   * @param filterRequest <p>
-   *        Consists of all the parameters that are required for filtering.<br/>
+   * @param filterRequest <div>
+   *        Consists of all the parameters that are required for filtering.<br>
    * 
    *        In case of filtering by level two or level three categories, it is mandatory to pass
    *        <ul>
@@ -50,10 +50,8 @@ public interface Feed {
    *        <li>marketplace</li>
    *        <li>token</li>
    *        </ul>
-   *        </p>
-   * @return Response <p>
-   * 
-   * </p>
+   *        </div>
+   * @return Response Response
    */
   public Response filter(FeedFilterRequest filterRequest);
 
@@ -63,7 +61,7 @@ public interface Feed {
    * </p>
    * 
    * @param filePath The absolute path to the gzipped feed file
-   * @return Response
+   * @return Response Response
    */
   public Response unzip(String filePath);
 
@@ -76,10 +74,10 @@ public interface Feed {
    * If the file is not available, then the error details are returned.
    * </p>
    * 
-   * @param FeedRequest
+   * @param feedRequest Container for capturing parameters for downloading feed file
    * @param downloadDirectory The local directory where the file should be downloaded. Default location is
    * the current working directory
-   * @return GetFeedResponse
+   * @return GetFeedResponse GetFeedResponse
    */
   public GetFeedResponse get(FeedRequest feedRequest, String downloadDirectory);
 
@@ -118,7 +116,7 @@ public interface Feed {
    * @param configFile The absolute path of the file, which consists of a list of feed request or filter 
    * request or both
    * @param token The oAuth token with the appropriate scope Eg - Bearer vxxx
-   * @return
+   * @return List of type Response
    */
   public List<com.ebay.feed.model.feed.operation.filter.Response> processConfigFile(
       String configFile, String token);

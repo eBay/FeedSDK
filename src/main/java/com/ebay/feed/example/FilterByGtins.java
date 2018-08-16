@@ -25,8 +25,8 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 /**
  * <p>
  * Simple example of applying a filter on an already downlaoded file 
- * <br/>
- * The filtering is performed on the unzipped file. <br/>
+ * <br>
+ * The filtering is performed on the unzipped file. <br>
  * - Filter feed file
  * </p>
  * 

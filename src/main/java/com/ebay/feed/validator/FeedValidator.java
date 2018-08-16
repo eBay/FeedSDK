@@ -32,8 +32,8 @@ public class FeedValidator {
   /**
    * Check path validity
    * 
-   * @param filePath
-   * @return
+   * @param filePath Checks if the file exists on the specified path
+   * @return boolean Indicates whether the file was found on the specified path
    */
   public boolean isValidPath(String filePath) {
 
@@ -50,8 +50,8 @@ public class FeedValidator {
    * Check feed filter request
    * </p>
    * 
-   * @param filterRequest
-   * @return
+   * @param filterRequest Container for capturing parameters related to filtering the feed files
+   * @return boolean Indicates whether all the mandatory parameters are present
    */
   public boolean isValidFilterRequest(FeedFilterRequest filterRequest) {
 
