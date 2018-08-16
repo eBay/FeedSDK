@@ -50,7 +50,7 @@ The SDK can be added as a maven dependency or the entire repository can be clone
 You are most welcome to collaborate and enhance the existing code base.
 
 ## Add as maven dependency
-TBD
+Coming soon
 
 ## Setting up in the local environment
 
@@ -120,7 +120,6 @@ The SDK provides the capability to filter the feed files based on :-
 * Level three Categories (the token scope should include api_scope and buy.item.feed scope)
 * Item IDs
 * EPIDs
-* Inferred EPIDs
 * GTINs
 
 On successful completion of a filter operation, a new __filtered__ file is created.
