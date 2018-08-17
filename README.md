@@ -50,7 +50,15 @@ The SDK can be added as a maven dependency or the entire repository can be clone
 You are most welcome to collaborate and enhance the existing code base.
 
 ## Add as maven dependency
-Coming soon
+
+```
+<!-- https://mvnrepository.com/artifact/com.ebay.api/feed-sdk -->
+<dependency>
+    <groupId>com.ebay.api</groupId>
+    <artifactId>feed-sdk</artifactId>
+    <version>1.0.0.beta-RELEASE</version>
+</dependency>
+```
 
 ## Setting up in the local environment
 
