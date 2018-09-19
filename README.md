@@ -323,11 +323,11 @@ The structure of the config file
 ```
 An example of using the SDK through a config file is located at 
 
-[Config file based approach example - ConfigFileBasedExample.java](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/ConfigFileBasedExample.java)
+[Config file based approach example - ConfigFileBasedExample.java](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/ConfigFileBasedExample.java)
 
-[Example config file - 1](https://github.corp.ebay.com/globalcommerce/FeedSDK/blob/master/sample-config/config-file-download-unzip-filter)
+[Example config file - 1](https://github.com/eBay/FeedSDK/blob/master/sample-config/config-file-download-unzip-filter)
 
-[Example config file - 2](https://github.corp.ebay.com/globalcommerce/FeedSDK/blob/master/sample-config/config-file-filter)
+[Example config file - 2](https://github.com/eBay/FeedSDK/blob/master/sample-config/config-file-filter)
 
 ### Using java method calls
 
@@ -335,17 +335,17 @@ Samples showing the usage of available operations and filters.
 
 #### Examples
 
-All the examples are located [__here__](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example)
+All the examples are located [__here__](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example)
 
-* [Filter by item location](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
-* [Filter by leaf categories](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
-* [Filter by price](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByPrice.java)
-* [Filter by seller user names](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
-* [Combining multiple filters](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/CombiningFilters.java)
-* [Filter on level three category](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
-* [Filter on EPID](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEpids.java)
-* [Filter on GTIN](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByGtins.java)
-* [Filter on item IDs](https://github.corp.ebay.com/globalcommerce/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
+* [Filter by item location](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
+* [Filter by leaf categories](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
+* [Filter by price](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByPrice.java)
+* [Filter by seller user names](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
+* [Combining multiple filters](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/CombiningFilters.java)
+* [Filter on level three category](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
+* [Filter on EPID](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEpids.java)
+* [Filter on GTIN](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByGtins.java)
+* [Filter on item IDs](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
 
 
 ---
