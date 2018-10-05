@@ -45,6 +45,7 @@ public class Constants {
   public static final String RANGE_PREFIX = "bytes=0-";
   public static final String RANGE_HEADER = "Range";
   public static final String CONTENT_RANGE_HEADER = "Content-Range";
+  public static final String LAST_MODIFIED_DATE_HEADER = "Last-Modified";
   public static final String TOKEN_BEARER_PREFIX = "Bearer ";
   public static final String TRUE = "true";
   public static final String FALSE = "false";
