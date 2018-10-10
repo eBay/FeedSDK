@@ -95,7 +95,6 @@ public class FeedImpl implements Feed {
     LOGGER.debug("Entering Feed.filter()");
 
     if (!feedValidator.isValidFilterRequest(filterRequest)) {
-
       LOGGER.debug("Null baseFilePath or filterRequest. Cannot filter. Aborting...");
       return createResponse(-1, "Null baseFilePath or filterRequest. Cannot filter. Aborting...",
           null, filterRequest);

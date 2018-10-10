@@ -18,12 +18,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.concurrent.TimeoutException;
 import java.util.zip.GZIPInputStream;
+
 import okhttp3.Request;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.ebay.feed.constants.Constants;
+import com.ebay.feed.enums.EnvTypeEnum;
 import com.ebay.feed.enums.FeedTypeEnum;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 
@@ -52,7 +55,9 @@ public class FeedUtil {
 
     String finalUrl = null;
     FeedTypeEnum type = feedRequest.getType();
-    StringBuilder bdr = new StringBuilder(Constants.FEED_API_BASE);
+     
+    String baseUrl = getBaseUrl(feedRequest);
+    StringBuilder bdr = new StringBuilder(baseUrl);
     switch (type) {
 
       case ITEM:
@@ -74,7 +79,16 @@ public class FeedUtil {
     return finalUrl;
   }
 
-  /**
+  private String getBaseUrl(FeedRequest feedRequest) {
+	EnvTypeEnum env = EnvTypeEnum.getEnvEnum(feedRequest.getEnv());
+    String baseUrl = Constants.FEED_API_PROD_BASE;
+    if(env != null && env == EnvTypeEnum.SANDBOX){
+    	baseUrl = Constants.FEED_API_SANDBOX_BASE;
+    }
+    return baseUrl;
+  }
+
+/**
    * <p>
    * Generate request instance for the feed API call
    * </p>

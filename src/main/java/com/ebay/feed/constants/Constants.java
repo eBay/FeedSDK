@@ -19,10 +19,12 @@ public class Constants {
   /**
    * Base path for the feed api
    */
-  public static final String FEED_API_BASE = "https://api.ebay.com/buy/feed/v1_beta/";
+  public static final String FEED_API_PROD_BASE = "https://api.ebay.com/buy/feed/v1_beta/";
+  
+  public static final String FEED_API_SANDBOX_BASE = "https://api.sandbox.ebay.com/buy/feed/v1_beta/";
   
   // max content that can be downloaded in one request, in bytes
-  public static final Long CHUNK_SIZE = 104857600L;
+  public static final Long CHUNK_SIZE = 10485760L;
   
   // timeout for http client
   public static final Integer TIMEOUT = 30;

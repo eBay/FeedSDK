@@ -42,6 +42,7 @@ public class FeedRequest {
   private String feedScope;
   private String token;
   private FeedTypeEnum type;
+  private String env;
 
   private FeedRequest(FeedRequestBuilder builder) {
     this.categoryId = builder.categoryId;
@@ -51,6 +52,7 @@ public class FeedRequest {
     this.token = builder.token;
     this.snapshotDate = builder.snapshotDate;
     this.type = builder.type;
+    this.env = builder.env;
   }
 
 
@@ -127,7 +129,14 @@ public class FeedRequest {
     this.type = type;
   }
 
+  public String getEnv() {
+	 return env;
+  }
 
+  public void setEnv(String env) {
+    this.env = env;
+  }
+	  
   public static class FeedRequestBuilder {
     private String categoryId;
     private String marketplaceId;
@@ -136,7 +145,8 @@ public class FeedRequest {
     private String token;
     private String snapshotDate;
     private FeedTypeEnum type;
-
+    private String env;
+    
     public FeedRequestBuilder categoryId(final String categoryId) {
       this.categoryId = categoryId;
       return this;
@@ -175,6 +185,11 @@ public class FeedRequest {
       this.type = type;
       return this;
     }
+    
+    public FeedRequestBuilder env(final String env) {
+        this.env = env;
+        return this;
+    }
 
     public FeedRequest build() {
       return new FeedRequest(this);
@@ -188,7 +203,7 @@ public class FeedRequest {
     builder.append("FeedRequest [categoryId=").append(categoryId).append(", marketplaceId=")
         .append(marketplaceId).append(", date=").append(date).append(", snapshotDate=")
         .append(snapshotDate).append(", feedScope=").append(feedScope).append(", token=")
-        .append(token).append(", type=").append(type).append("]");
+        .append(token).append(", type=").append(type).append(", env=").append(env).append("]");
     return builder.toString();
   }
 }
