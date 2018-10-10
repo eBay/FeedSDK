@@ -56,7 +56,7 @@ You are most welcome to collaborate and enhance the existing code base.
 <dependency>
     <groupId>com.ebay.api</groupId>
     <artifactId>feed-sdk</artifactId>
-    <version>1.0.0.beta-RELEASE</version>
+    <version>1.0.1.beta-RELEASE</version>
 </dependency>
 ```
 
