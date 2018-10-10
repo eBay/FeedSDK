@@ -26,12 +26,20 @@ public class InvokeResponse {
 
   private String contentRange;
   private int statusCode;
+  private String lastModified;
 
   public InvokeResponse(String contentRange, int statusCode) {
     super();
     this.contentRange = contentRange;
     this.setStatusCode(statusCode);
   }
+  
+  public InvokeResponse(String contentRange, int statusCode, String lastModified) {
+	    super();
+	    this.contentRange = contentRange;
+	    this.setStatusCode(statusCode);
+	    this.lastModified = lastModified;
+	  }
 
   public String getContentRange() {
     return contentRange;
@@ -49,11 +57,20 @@ public class InvokeResponse {
     this.statusCode = statusCode;
   }
 
-  @Override
+  public String getLastModified() {
+	return lastModified;
+  }
+
+  public void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
+  }
+
+@Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("InvokeResponse [contentRange=").append(contentRange).append(", statusCode=")
-        .append(statusCode).append("]");
+    builder.append("InvokeResponse [contentRange=").append(contentRange)
+    				      .append(", statusCode=").append(statusCode)
+    				      .append(", lastModified=").append(lastModified).append("]");
     return builder.toString();
   }
 }

@@ -30,7 +30,7 @@ public class FeedUtilTest {
   public void getFinalUrlInvalidTypeTest() {
 
     String expectedUrl =
-        Constants.FEED_API_BASE + Constants.ITEM_RESOURCE_SCOPE + "ALL_ACTIVE"
+        Constants.FEED_API_PROD_BASE + Constants.ITEM_RESOURCE_SCOPE + "ALL_ACTIVE"
             + Constants.QUERY_PARAM_SEPARATOR + Constants.QUERY_CATEGORY_ID + "1"
             + Constants.QUERY_PARAM_SEPARATOR + Constants.QUERY_DATE + "20180101";
     FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();

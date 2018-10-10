@@ -19,10 +19,12 @@ public class Constants {
   /**
    * Base path for the feed api
    */
-  public static final String FEED_API_BASE = "https://api.ebay.com/buy/feed/v1_beta/";
+  public static final String FEED_API_PROD_BASE = "https://api.ebay.com/buy/feed/v1_beta/";
+  
+  public static final String FEED_API_SANDBOX_BASE = "https://api.sandbox.ebay.com/buy/feed/v1_beta/";
   
   // max content that can be downloaded in one request, in bytes
-  public static final Long CHUNK_SIZE = 104857600L;
+  public static final Long CHUNK_SIZE = 10485760L;
   
   // timeout for http client
   public static final Integer TIMEOUT = 30;
@@ -45,6 +47,7 @@ public class Constants {
   public static final String RANGE_PREFIX = "bytes=0-";
   public static final String RANGE_HEADER = "Range";
   public static final String CONTENT_RANGE_HEADER = "Content-Range";
+  public static final String LAST_MODIFIED_DATE_HEADER = "Last-Modified";
   public static final String TOKEN_BEARER_PREFIX = "Bearer ";
   public static final String TRUE = "true";
   public static final String FALSE = "false";

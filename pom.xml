@@ -20,7 +20,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ebay.api</groupId>
 	<artifactId>feed-sdk</artifactId>
-	<version>1.0.0.beta-RELEASE</version>
+	<version>1.0.1.beta-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>eBay Feed SDK helps in downloading and filtering feed files</description>
@@ -36,6 +36,13 @@
 			<id>shanganesh</id>
 			<name>Shankar Ganesh</name>
 			<email>shanganesh@ebay.com</email>
+			<organization>eBay</organization>
+			<organizationUrl>https://www.ebay.com</organizationUrl>
+		</developer>
+		<developer>
+			<id>skumaravelayutham</id>
+			<name>Seethalakshmi Kumaravelayutham</name>
+			<email>skumaravelayutham@ebay.com</email>
 			<organization>eBay</organization>
 			<organizationUrl>https://www.ebay.com</organizationUrl>
 		</developer>

@@ -22,14 +22,22 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.ebay.feed.constants.Constants;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.config.ConfigFileBasedRequest;
@@ -60,7 +68,6 @@ import com.google.gson.GsonBuilder;
 public class FeedImpl implements Feed {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FeedImpl.class);
-
   private OkHttpClient client = null;
   private FeedUtil feedUtils = null;
   private FilterUtil filterUtils = null;
@@ -88,7 +95,6 @@ public class FeedImpl implements Feed {
     LOGGER.debug("Entering Feed.filter()");
 
     if (!feedValidator.isValidFilterRequest(filterRequest)) {
-
       LOGGER.debug("Null baseFilePath or filterRequest. Cannot filter. Aborting...");
       return createResponse(-1, "Null baseFilePath or filterRequest. Cannot filter. Aborting...",
           null, filterRequest);
@@ -270,7 +276,7 @@ public class FeedImpl implements Feed {
 
     if (responseFlag.getStatusCode() == 200) {
       LOGGER.debug("First API Response is 200. All done..");
-      return new GetFeedResponse(Constants.SUCCESS_CODE, Constants.SUCCESS, path.toString(), null);
+      return new GetFeedResponse(Constants.SUCCESS_CODE, Constants.SUCCESS, fixFilePath(path,responseFlag), null);
 
     } else if (responseFlag.getStatusCode() == 206) {
 
@@ -299,13 +305,36 @@ public class FeedImpl implements Feed {
         responseRangeUpperLimit = Long.valueOf(responseFlag.getContentRange().split("/")[1]);
 
       }
-      return new GetFeedResponse(Constants.SUCCESS_CODE, Constants.SUCCESS, path.toString(), null);
+      return new GetFeedResponse(Constants.SUCCESS_CODE, Constants.SUCCESS, fixFilePath(path,responseFlag), null);
     } else {
       LOGGER.debug("First API Response is error. Aborting...");
       return new GetFeedResponse(Constants.FAILURE_CODE, Constants.FAILURE, null, null);
     }
   }
 
+  /**
+   * <p>
+   * Since date is optional param for getting bootstrap feed, filePath will have null value(item_bootstrap-11116-null-EBAY-US.gz)
+   * This method helps to rename the null value with LastModified api response header
+   * </p>
+   * @param originalFilePath
+   * @param invokeResponse
+   * @return
+   */
+  private String fixFilePath(Path originalFilePath, InvokeResponse invokeResponse) {
+	    Path newFilePath = originalFilePath;
+	    if(originalFilePath.toString().contains("null") && !StringUtils.isEmpty(invokeResponse.getLastModified())){	    	
+	    	String newPath = originalFilePath.toString().replace("null", invokeResponse.getLastModified());
+	    	newFilePath = Paths.get(newPath);
+	        try {
+				Files.move(originalFilePath, newFilePath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+			  LOGGER.error("Unable to rename the bootstrap item feed file with date field", e);			      
+			}
+	    }
+	    return newFilePath.toString();
+  }
+  
   /**
    * <p>
    * Invoked, only if the file size is greater than max chunk size
@@ -340,12 +369,19 @@ public class FeedImpl implements Feed {
       outStream.close();
       is.close();
 
+      String lastModifiedHeader = response.header(Constants.LAST_MODIFIED_DATE_HEADER);
+      String lastModifiedDate = null;
+      if(!StringUtils.isEmpty(lastModifiedHeader)){
+    	  LocalDate localDate = LocalDate.parse(lastModifiedHeader, DateTimeFormatter.RFC_1123_DATE_TIME);
+    	  lastModifiedDate = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
+      }
+
       responseFlag =
-          new InvokeResponse(response.header(Constants.CONTENT_RANGE_HEADER), response.code());
+          new InvokeResponse(response.header(Constants.CONTENT_RANGE_HEADER), response.code(), lastModifiedDate);
 
     } catch (Throwable t) {
-      t.printStackTrace();
-      responseFlag = new InvokeResponse(null, 400);
+		  LOGGER.error("Exception in feed.invokeIteratively()", t);			      
+		  responseFlag = new InvokeResponse(null, 400);
     }
     return responseFlag;
   }

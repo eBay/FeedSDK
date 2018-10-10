@@ -18,15 +18,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ebay.feed.api.Feed;
 import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.auth.CredentialLoader;
+import com.ebay.feed.enums.EnvTypeEnum;
 import com.ebay.feed.enums.FeedTypeEnum;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
@@ -45,7 +50,9 @@ import com.ebay.feed.model.oauth.AuthRequest;
  *
  */
 public class FeedCli {
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FeedCli.class);
+	
   public static void main(String[] args) throws Exception {
 
     // ***Definition Stage***
@@ -74,6 +81,9 @@ public class FeedCli {
 
     // token
     options.addOption("token", true, "the oauth token for the consumer. Omit the word 'Bearer'");
+    
+    // env
+    options.addOption("env", true, "Supported environment types are SANDBOX, PRODUCTION");
 
     /**
      * options for filtering the files
@@ -136,7 +146,7 @@ public class FeedCli {
         new Option("itemf", true, "list of item ids which are used to filter the feed");
     filterItem.hasArgs();
     filterItem.setArgs(Option.UNLIMITED_VALUES);
-    options.addOption(filterItem);
+    options.addOption(filterItem);    
 
     /**
      * Overrides for file locations
@@ -179,7 +189,11 @@ public class FeedCli {
 
     if (cmd.hasOption("token"))
       builder.token("Bearer " + cmd.getOptionValue("token"));
-
+    
+    if (cmd.hasOption("env")){
+        builder.env(cmd.getOptionValue("env"));
+    }
+    
     // TODO : Hardcoded item
     builder.type(FeedTypeEnum.ITEM);
     FeedRequest feedRequest = builder.build();
@@ -295,7 +309,7 @@ public class FeedCli {
 
     // unzip
     Response unzipResponse = feed.unzip(getFeedResponse.getFilePath());
-
+    
     if (unzipResponse.getStatusCode() != 0)
       return;
 

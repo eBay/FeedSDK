@@ -278,6 +278,7 @@ usage: Feed SDK CLI
  -cl,--credentiallocation <arg>    directory where the credentials file is
                                    located
  -authscopes,--oauthscopes <arg>   list of scopes
+ -env <arg>   					   Environment Type. Supported Environments are SANDBOX and PRODUCTION
 
 ```
 
@@ -346,6 +347,7 @@ All the examples are located [__here__](https://github.com/eBay/FeedSDK/tree/mas
 * [Filter on EPID](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEpids.java)
 * [Filter on GTIN](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByGtins.java)
 * [Filter on item IDs](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
+* [Filter by 'env'](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEnv.java)
 
 
 ---
