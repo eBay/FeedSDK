@@ -4,7 +4,7 @@ Feed SDK CHANGE LOG
 ====================
 Change log for Feed SDK which helps to download and filter the item feed files.
 
-* [1.0.0.beta-RELEASE](#1.0.0.beta-RELEASE)
+* 1.0.0.beta-RELEASE
 * [1.0.1.beta-RELEASE](#1.0.1.beta-RELEASE)
 
 # 1.0.1.beta-RELEASE (2018/10/10)

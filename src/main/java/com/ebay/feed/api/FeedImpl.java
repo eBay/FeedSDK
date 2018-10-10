@@ -237,11 +237,12 @@ public class FeedImpl implements Feed {
     // generate static request
     requestBuilder = feedUtils.generateRequest(feedRequest, requestBuilder);
 
-    // generate dynamic header
-    requestBuilder.addHeader(Constants.RANGE_HEADER, Constants.RANGE_PREFIX + Constants.CHUNK_SIZE);
+    // generate dynamic header    
+    Long chunkSizeLimit = feedUtils.getChunkSizeLimit(feedRequest);
+    requestBuilder.addHeader(Constants.RANGE_HEADER, Constants.RANGE_PREFIX + chunkSizeLimit);
 
     // invoke request
-    return invoker(requestBuilder, path, true);
+    return invoker(requestBuilder, path, true, chunkSizeLimit);
   }
 
   /**
@@ -260,9 +261,10 @@ public class FeedImpl implements Feed {
    *        appended
    * @param isStart - THe first request sets this parameter to true. If subsequent requests are
    *        required in case of 206, then this is set to false.
+   * @param chunkSizeLimit - This indicates the max chunkSize limit. For prod, it is 100 MB and for sandbox, it is 10MB.
    * @return
    */
-  private GetFeedResponse invoker(Request.Builder requestBuilder, Path path, boolean isStart) {
+  private GetFeedResponse invoker(Request.Builder requestBuilder, Path path, boolean isStart, Long chunkSizeLimit) {
 
     LOGGER.debug("Entering Feed.invoker()");
 
@@ -288,7 +290,7 @@ public class FeedImpl implements Feed {
 
       while (requestRangeUpperLimit <= responseRangeUpperLimit) {
 
-        long newUpperLimit = requestRangeUpperLimit + Constants.CHUNK_SIZE;
+        long newUpperLimit = requestRangeUpperLimit + chunkSizeLimit;
         String val = "bytes=" + requestRangeUpperLimit + "-" + newUpperLimit;
 
         requestBuilder.removeHeader(Constants.RANGE_HEADER);

@@ -15,9 +15,12 @@
 package com.ebay.feed.util;
 
 import okhttp3.Request;
+
 import org.junit.Assert;
 import org.junit.Test;
+
 import com.ebay.feed.constants.Constants;
+import com.ebay.feed.enums.EnvTypeEnum;
 import com.ebay.feed.enums.FeedTypeEnum;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
@@ -88,5 +91,30 @@ public class FeedUtilTest {
     builder.date("20180101");
     builder.siteId("EBAY-US");
     Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
+  }
+  
+  @Test
+  public void getChunkSizeLimitTest() {
+	  // Prod
+    Long expectedChunkSize =
+        Constants.PROD_CHUNK_SIZE;
+    FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+    builder.type(FeedTypeEnum.ITEM);
+    builder.categoryId("1");
+    builder.feedScope("ALL_ACTIVE");
+    builder.date("20180101");
+    
+    Assert.assertEquals(expectedChunkSize, feedUtil.getChunkSizeLimit(builder.build()));
+
+	  // Sandbox
+    expectedChunkSize =
+            Constants.SANDBOX_CHUNK_SIZE;
+    builder = new FeedRequestBuilder();
+    builder.type(FeedTypeEnum.ITEM);
+    builder.categoryId("1");
+    builder.feedScope("ALL_ACTIVE");
+    builder.date("20180101");
+    builder.env(EnvTypeEnum.SANDBOX.name());
+    Assert.assertEquals(expectedChunkSize, feedUtil.getChunkSizeLimit(builder.build()));
   }
 }

@@ -87,6 +87,15 @@ public class FeedUtil {
     }
     return baseUrl;
   }
+  
+  public Long getChunkSizeLimit(FeedRequest feedRequest) {
+		EnvTypeEnum env = EnvTypeEnum.getEnvEnum(feedRequest.getEnv());
+		Long chunkSize = Constants.PROD_CHUNK_SIZE;
+	    if(env != null && env == EnvTypeEnum.SANDBOX){
+	    	chunkSize = Constants.SANDBOX_CHUNK_SIZE;
+	    }
+	    return chunkSize;
+	  }
 
 /**
    * <p>
