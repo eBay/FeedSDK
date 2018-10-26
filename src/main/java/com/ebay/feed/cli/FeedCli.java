@@ -77,7 +77,7 @@ public class FeedCli {
 
     // marketplace
     options.addOption("mkt", true,
-        "the marketplace id for which feed is being request. For example - EBAY-US");
+        "the marketplace id for which feed is being request. For example - EBAY_US");
 
     // token
     options.addOption("token", true, "the oauth token for the consumer. Omit the word 'Bearer'");

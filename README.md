@@ -77,13 +77,13 @@ The SDK abstracts the complexity involved in calculating the request header '__r
 To download a feed file which is -
 * __bootstrap__ : (feed_scope = ALL_ACTIVE)
 * __L1 category 1__ : (category_id = 1)
-* __marketplace US__ : (X-EBAY-C-MARKETPLACE-ID: EBAY-US)
+* __marketplace US__ : (X-EBAY-C-MARKETPLACE-ID: EBAY_US)
 
 ```
 FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
 builder.feedScope("ALL_ACTIVE")
 	.categoryId("1")
- 	.siteId("EBAY-US")
+ 	.siteId("EBAY_US")
 	.token(<TOKEN>)
 	.type(FeedTypeEnum.ITEM);
 
@@ -248,7 +248,7 @@ usage: Feed SDK CLI
  -scope <arg>                      the feed scope. Available scopes are
                                    ALL_ACTIVE or NEWLY_LISTED
  -mkt <arg>                        the marketplace id for which feed is
-                                   being request. For example - EBAY-US
+                                   being request. For example - EBAY_US
  -token <arg>                      the oauth token for the consumer. Omit
                                    the word 'Bearer'
  -c2f <arg>                        list of l2 categories which are used to
@@ -286,12 +286,12 @@ For example, to use the command line options to download, unzip and filter feed 
 
 Using token
 ```
-java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -dt 20180701 -c1 1281 -scope ALL_ACTIVE -lf 46310 177789 -mkt EBAY-US -c3f 177792 116381 -pricelf 2 -priceuf 100 -locf US CN -token xxx
+java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -dt 20180701 -c1 1281 -scope ALL_ACTIVE -lf 46310 177789 -mkt EBAY_US -c3f 177792 116381 -pricelf 2 -priceuf 100 -locf US CN -token xxx
 ```
 
 Using credentials file
 ```
-java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -dt 20180801 -c1 11700 -scope ALL_ACTIVE -mkt EBAY-US -pricelf 2 -priceuf 100 -locf US CN -cl <absolute path of credentials file>
+java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -dt 20180801 -c1 11700 -scope ALL_ACTIVE -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -cl <absolute path of credentials file>
 ```
 
 ### Using config file driven approach
@@ -306,7 +306,7 @@ The structure of the config file
 	"requests": [{
 		"feedRequest": {
 			"categoryId": "1",
-			"marketplaceId": "EBAY-US",
+			"marketplaceId": "EBAY_US",
 			"date": "20180708",
 			"feedScope": "ALL_ACTIVE",
 			"type": "ITEM"

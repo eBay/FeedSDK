@@ -56,7 +56,7 @@ public class FeedUtilTest {
     builder.feedScope("ALL_ACTIVE");
     builder.date("20180101");
     builder.token(Constants.TOKEN_BEARER_PREFIX + "v1...");
-    builder.siteId("EBAY-US");
+    builder.siteId("EBAY_US");
 
     feedUtil.generateRequest(builder.build(), requestBuilder);
 
@@ -70,26 +70,26 @@ public class FeedUtilTest {
   @Test
   public void generateFileNameTest() {
 
-    String expectedFileName = "item_daily-1-20180101-EBAY-US.gz";
+    String expectedFileName = "item_daily-1-20180101-EBAY_US.gz";
     FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
     builder.type(FeedTypeEnum.ITEM);
     builder.categoryId("1");
     builder.feedScope("NEWLY_LISTED");
     builder.date("20180101");
-    builder.siteId("EBAY-US");
+    builder.siteId("EBAY_US");
     Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
   }
 
   @Test
   public void generateFileNameBootstrapTest() {
 
-    String expectedFileName = "item_bootstrap-1-20180101-EBAY-US.gz";
+    String expectedFileName = "item_bootstrap-1-20180101-EBAY_US.gz";
     FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
     builder.type(FeedTypeEnum.ITEM);
     builder.categoryId("1");
     builder.feedScope("ALL_ACTIVE");
     builder.date("20180101");
-    builder.siteId("EBAY-US");
+    builder.siteId("EBAY_US");
     Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
   }
   

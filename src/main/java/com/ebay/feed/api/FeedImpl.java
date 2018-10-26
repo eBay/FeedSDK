@@ -316,7 +316,7 @@ public class FeedImpl implements Feed {
 
   /**
    * <p>
-   * Since date is optional param for getting bootstrap feed, filePath will have null value(item_bootstrap-11116-null-EBAY-US.gz)
+   * Since date is optional param for getting bootstrap feed, filePath will have null value(item_bootstrap-11116-null-EBAY_US.gz)
    * This method helps to rename the null value with LastModified api response header
    * </p>
    * @param originalFilePath

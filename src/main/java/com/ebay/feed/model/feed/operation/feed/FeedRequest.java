@@ -23,7 +23,7 @@ import com.ebay.feed.enums.FeedTypeEnum;
   Request parameters for invoking feed API <br>
   <ul>
   <li><b>categoryId</b> - The level one category id of the feed file</li>
-  <li><b>marketplaceId</b> - The marketplace id for the feed file Eg EBAY-US</li>
+  <li><b>marketplaceId</b> - The marketplace id for the feed file Eg EBAY_US</li>
   <li><b>date</b> - The date parameter for the feed file. Optional for bootstrap feed files</li>
   <li><b>feedScope</b> - Scope of the feed file - ALL_ACTIVE or NEWLY_LISTED</li>
   <li><b>token</b> - OAuth token</li>

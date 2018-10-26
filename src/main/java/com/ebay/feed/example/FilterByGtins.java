@@ -36,7 +36,7 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 public class FilterByGtins {
 
   // oauth token
-  static String token = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#f^0#I...";
+  static String token = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#f^0#...";
 
   // init feed
   static Feed feed = new FeedImpl();
@@ -49,7 +49,7 @@ public class FilterByGtins {
     // set input file
     // absolute path to the unzipped file
     filterRequest
-        .setInputFilePath("item_bootstrap-1281-20180708-EBAY-US");
+        .setInputFilePath("item_bootstrap-1281-20180708-EBAY_US");
 
     Response response = feed.filter(filterRequest);
     System.out.println("Filter status = " + response.getStatusCode());

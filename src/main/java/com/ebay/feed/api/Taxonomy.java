@@ -23,7 +23,7 @@ import com.ebay.feed.model.feed.operation.taxonomy.CategoryResponse;
  * Taxonomy interface which consists of the following capabilities
  * <ul>
  * <li>
- * <b>getCategoryTreeId</b> - Get the category tree id for the marketplace. For EBAY-US, it returns 0
+ * <b>getCategoryTreeId</b> - Get the category tree id for the marketplace. For EBAY_US, it returns 0
  * </li>
  * <li>
  * <b>loadLeafCategories</b> - Creates a map between level two categories to leaf categories,
@@ -45,7 +45,7 @@ public interface Taxonomy {
    * </p>
    * 
    * @param token OAUth token
-   * @param marketplaceId A string representing the marketplace : EBAY-US
+   * @param marketplaceId A string representing the marketplace : EBAY_US
    * @return string The category tree id for the marketplace
    */
   public String getCategoryTreeId(String token, String marketplaceId);
