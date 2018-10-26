@@ -36,7 +36,7 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 public class FilterByGtins {
 
   // oauth token
-  static String token = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#f^0#I...";
+  static String token = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#f^0#...";
 
   // init feed
   static Feed feed = new FeedImpl();
