@@ -58,7 +58,7 @@ public class CombiningFilters {
   // TODO : Check if the date is within 14 days, before making the call
   private static final String DATE = "20180805";
   private static final String SCOPE = "ALL_ACTIVE";
-  private static final String MKT = "EBAY-US";
+  private static final String MKT = "EBAY_US";
   
   public static void main(String[] args) {
 

@@ -49,7 +49,7 @@ public class FilterByGtins {
     // set input file
     // absolute path to the unzipped file
     filterRequest
-        .setInputFilePath("item_bootstrap-1281-20180708-EBAY-US");
+        .setInputFilePath("item_bootstrap-1281-20180708-EBAY_US");
 
     Response response = feed.filter(filterRequest);
     System.out.println("Filter status = " + response.getStatusCode());

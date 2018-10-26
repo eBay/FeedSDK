@@ -37,7 +37,7 @@ import com.google.gson.JsonParser;
  * Taxonomy implementation which consists of the following capabilities
  * <ul>
  * <li>
- * <b>getCategoryTreeId</b> - Get the category tree id for the marketplace. For EBAY-US, it returns
+ * <b>getCategoryTreeId</b> - Get the category tree id for the marketplace. For EBAY_US, it returns
  * 0</li>
  * <li>
  * <b>loadLeafCategories</b> - Creates a map between level two categories to leaf categories, and

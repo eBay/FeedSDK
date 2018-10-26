@@ -43,7 +43,7 @@ public class FilterByEnv {
 
 
   // oauth token
-  static String TOKEN = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#^...";
+  static String TOKEN = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#p^1#r^0#I...";
 
   // init feed
   static Feed feed = new FeedImpl();
@@ -53,7 +53,7 @@ public class FilterByEnv {
   // TODO : Check if the date is within 14 days, before making the call
   private static final String DATE = "20181005";
   private static final String SCOPE = "ALL_ACTIVE";
-  private static final String MKT = "EBAY-US";
+  private static final String MKT = "EBAY_US";
   
   public static void main(String[] args) {
 

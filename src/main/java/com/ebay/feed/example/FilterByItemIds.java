@@ -47,7 +47,7 @@ public class FilterByItemIds {
   // oauth token - Bearer xxx
   static String token =
       Constants.TOKEN_BEARER_PREFIX
-          + "v^1.1#i^1#f^0#I^...";
+          + "v^1.1#i^1#f...";
 
   // init feed
   static Feed feed = new FeedImpl();
@@ -57,7 +57,7 @@ public class FilterByItemIds {
   // TODO : Check if the date is within 14 days, before making the call
   private static final String DATE = "20180805";
   private static final String SCOPE = "ALL_ACTIVE";
-  private static final String MKT = "EBAY-US";
+  private static final String MKT = "EBAY_US";
 
   public static void main(String[] args) {
 
