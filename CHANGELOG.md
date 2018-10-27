@@ -12,7 +12,7 @@ Change log for Feed SDK which helps to download and filter the item feed files.
 [Full Changelog](https://github.com/eBay/FeedSDK/compare/1.0.1.beta-RELEASE...1.0.2.beta-RELEASE)
 
 Enhancement Requests:
-* Updated the documentation with correct marketplace header format - [\#1](https://github.com/eBay/FeedSDK/issues/2)
+* Updated the documentation with correct marketplace header format 
 
 
 # 1.0.1.beta-RELEASE (2018/10/10)
