@@ -217,7 +217,7 @@ public class FeedCli {
 
     if (cmd.hasOption("c2f"))
       filterRequest.setLevelTwoCategories(new HashSet<String>(Arrays.asList(cmd
-          .getOptionValues("c3f"))));
+          .getOptionValues("c2f"))));
 
     if (cmd.hasOption("sellerf"))
       filterRequest.setSellerNames(new HashSet<String>(
