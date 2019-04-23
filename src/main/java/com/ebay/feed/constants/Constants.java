@@ -59,6 +59,7 @@ public class Constants {
   public static final String MARKETPLACE_HEADER = "X-EBAY-C-MARKETPLACE-ID";
   public static final String CONTENT_TYPE_HEADER = "Content-type";
   public static final String ACCEPT_HEADER = "Accept";
+  public static final String RLOG_ID = "rlogid";
 
   public static final String ALL_ACTIVE = "ALL_ACTIVE";
   
