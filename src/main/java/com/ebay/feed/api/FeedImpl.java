@@ -1,11 +1,11 @@
 /*
  * Copyright 2018 eBay Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -50,6 +51,8 @@ import com.ebay.feed.util.FilterUtil;
 import com.ebay.feed.validator.FeedValidator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ebay.feed.auth.CredentialLoader;
+import com.ebay.feed.model.oauth.AuthRequest;
 
 /**
  * <div>
@@ -61,7 +64,7 @@ import com.google.gson.GsonBuilder;
  * contents</li>
  * </ul>
  * </div>
- * 
+ *
  * @author shanganesh
  *
  */
@@ -72,6 +75,7 @@ public class FeedImpl implements Feed {
   private FeedUtil feedUtils = null;
   private FilterUtil filterUtils = null;
   private FeedValidator feedValidator = null;
+  static String credentialFilePath = "credentials.yaml";
 
   public FeedImpl() {
     client =
@@ -86,7 +90,7 @@ public class FeedImpl implements Feed {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ebay.feed.api.Feed#filter(java.lang.String, com.ebay.feed.model.FeedFilterRequest)
    */
   @Override
@@ -125,7 +129,7 @@ public class FeedImpl implements Feed {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ebay.feed.api.Feed#unzip(java.lang.String, boolean)
    */
   @Override
@@ -159,7 +163,7 @@ public class FeedImpl implements Feed {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ebay.feed.api.Feed#get(com.ebay.feed.model.FeedRequest)
    */
   @Override
@@ -202,7 +206,7 @@ public class FeedImpl implements Feed {
    * additional headers including range - Creates default file/folder path and cleansup if already
    * present
    * </p>
-   * 
+   *
    * @param feedRequest
    * @param downloadDirectory Optional local directory where files can be downloaded. Default is
    *        current working directory
@@ -237,7 +241,7 @@ public class FeedImpl implements Feed {
     // generate static request
     requestBuilder = feedUtils.generateRequest(feedRequest, requestBuilder);
 
-    // generate dynamic header    
+    // generate dynamic header
     Long chunkSizeLimit = feedUtils.getChunkSizeLimit(feedRequest);
     requestBuilder.addHeader(Constants.RANGE_HEADER, Constants.RANGE_PREFIX + chunkSizeLimit);
 
@@ -249,13 +253,13 @@ public class FeedImpl implements Feed {
    * <p>
    * Invokes the feed API with the max range value of 100 MB. If the file is lesser than 100 MB,
    * then it returns the downloaded file path along with the status.
-   * 
+   *
    * If the file is greater than 100 MB - Iteratively calls feed API, with incrementing range
    * headers - Appends content to file - Downloads entire content and returns with downloaded file
    * path.
-   * 
+   *
    * </p>
-   * 
+   *
    * @param request The API request
    * @param path Path of the downloaded or partially downloading file, where contents need to be
    *        appended
@@ -296,6 +300,27 @@ public class FeedImpl implements Feed {
         requestBuilder.removeHeader(Constants.RANGE_HEADER);
         requestBuilder.addHeader(Constants.RANGE_HEADER, val);
 
+        //token refresh on the fly from config file.
+        try {
+          AuthRequest authRequest = new AuthRequest(credentialFilePath, null);
+          CredentialLoader credentialLoader = new CredentialLoader(authRequest);
+          credentialLoader.loadCredentials();
+          Date tokenExpireTime = credentialLoader.getOauthResponse().getAccessToken().get().getExpiresOn();
+          String oldToken = credentialLoader.getOauthResponse().getAccessToken().get().getToken();
+          LOGGER.info("Token :"+ oldToken + "Expiry time :"+tokenExpireTime);
+          Date currentTime = new Date();
+          if(tokenExpireTime.before(currentTime)){
+            String token = credentialLoader.getOauthResponse().getAccessToken().get().getToken();
+            token = Constants.TOKEN_BEARER_PREFIX + token;
+            requestBuilder.removeHeader(Constants.AUTHORIZATION_HEADER);
+            requestBuilder.addHeader(Constants.AUTHORIZATION_HEADER, token);
+          }
+        } catch(Exception e){
+          LOGGER.info("Exception in fetching the new access token"+ e.getMessage());
+          return new GetFeedResponse(Constants.FAILURE_CODE, Constants.FAILURE, null, null);
+        }
+
+        requestBuilder.addHeader(Constants.RANGE_HEADER, val);
         responseFlag = invokeIteratively(requestBuilder.build(), path);
 
         if (responseFlag == null) {
@@ -324,24 +349,24 @@ public class FeedImpl implements Feed {
    * @return
    */
   private String fixFilePath(Path originalFilePath, InvokeResponse invokeResponse) {
-	    Path newFilePath = originalFilePath;
-	    if(originalFilePath.toString().contains("null") && !StringUtils.isEmpty(invokeResponse.getLastModified())){	    	
-	    	String newPath = originalFilePath.toString().replace("null", invokeResponse.getLastModified());
-	    	newFilePath = Paths.get(newPath);
-	        try {
-				Files.move(originalFilePath, newFilePath, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-			  LOGGER.error("Unable to rename the bootstrap item feed file with date field", e);			      
-			}
-	    }
-	    return newFilePath.toString();
+    Path newFilePath = originalFilePath;
+    if(originalFilePath.toString().contains("null") && !StringUtils.isEmpty(invokeResponse.getLastModified())){
+      String newPath = originalFilePath.toString().replace("null", invokeResponse.getLastModified());
+      newFilePath = Paths.get(newPath);
+      try {
+        Files.move(originalFilePath, newFilePath, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e) {
+        LOGGER.error("Unable to rename the bootstrap item feed file with date field", e);
+      }
+    }
+    return newFilePath.toString();
   }
-  
+
   /**
    * <p>
    * Invoked, only if the file size is greater than max chunk size
    * </p>
-   * 
+   *
    * @param request The API request
    * @param path Path of the downloaded or partially downloading file, where contents need to be
    *        appended
@@ -374,23 +399,23 @@ public class FeedImpl implements Feed {
       String lastModifiedHeader = response.header(Constants.LAST_MODIFIED_DATE_HEADER);
       String lastModifiedDate = null;
       if(!StringUtils.isEmpty(lastModifiedHeader)){
-    	  LocalDate localDate = LocalDate.parse(lastModifiedHeader, DateTimeFormatter.RFC_1123_DATE_TIME);
-    	  lastModifiedDate = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
+        LocalDate localDate = LocalDate.parse(lastModifiedHeader, DateTimeFormatter.RFC_1123_DATE_TIME);
+        lastModifiedDate = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
       }
 
       responseFlag =
           new InvokeResponse(response.header(Constants.CONTENT_RANGE_HEADER), response.code(), lastModifiedDate);
 
     } catch (Throwable t) {
-		  LOGGER.error("Exception in feed.invokeIteratively()", t);			      
-		  responseFlag = new InvokeResponse(null, 400);
+      LOGGER.error("Exception in feed.invokeIteratively()", t);
+      responseFlag = new InvokeResponse(null, 400);
     }
     return responseFlag;
   }
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ebay.feed.api.Feed#processConfigFile(java.lang.String, java.lang.String)
    */
   @Override
@@ -496,7 +521,7 @@ public class FeedImpl implements Feed {
    * <p>
    * Returns a new instance of response, based on the provided inputs
    * </p>
-   * 
+   *
    * @param statusCode
    * @param message
    * @param filePath
