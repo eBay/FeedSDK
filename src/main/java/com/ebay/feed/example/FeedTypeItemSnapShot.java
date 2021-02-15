@@ -18,6 +18,7 @@ import java.util.Set;
 import com.ebay.feed.api.Feed;
 import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.constants.Constants;
+import com.ebay.feed.enums.EnvTypeEnum;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
@@ -26,10 +27,10 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 
 /**
  * <p>
- * Example showing how to download and filter feed files based on seller user
- * names. The download location is default - current working directory <br>
- * This example downloads the bootstrap feed file for L1 category : 1
- * (Collectibles) and filters on seller user names. <br>
+ * Example showing how to download and filter item_snapshot feed files based on
+ * itemIds. The download location is default - current working directory <br>
+ * This example downloads the item_snapshot feed file for L1 category : 1
+ * (Collectibles) and filters on itemIds. <br>
  * The filtering is performed on the unzipped file. <br>
  * So the sequence of events that are followed is :- <br>
  * - Download feed file <br>
@@ -37,33 +38,30 @@ import com.ebay.feed.model.feed.operation.filter.Response;
  * - Filter feed file
  * </p>
  *
- * @author shanganesh
  *
  */
-public class FilterBySellerUserNames {
+public class FeedTypeItemSnapShot {
 
-    // oauth token
-  static String TOKEN =
-      Constants.TOKEN_BEARER_PREFIX
-            + "v^1.1#i^1#r^0#I^3...";
+    // oauth token - Bearer xxx
+    static String token
+            = Constants.TOKEN_BEARER_PREFIX
+            + "v^1.1#i^1#f...";
 
     // init feed
     static Feed feed = new FeedImpl();
 
-    private static final String CATEGORY = "1281";
-
-    // TODO : Check if the date is within 14 days, before making the call
-    private static final String DATE = "20180708";
-    private static final String SCOPE = "ALL_ACTIVE";
+    private static final String CATEGORY = "625";
+    private static final String SNAPSHOT_DATE = "2021-01-29T02:00:00.000Z";
     private static final String MKT = "EBAY_US";
-    private static final String FEEDTYPE = "item";
+    private static final String FEEDTYPE = "item_snapshot";
 
     public static void main(String[] args) {
 
         // create request
         FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-        builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(TOKEN)
-        .type(FEEDTYPE);
+
+        builder.categoryId(CATEGORY).snapshotDate(SNAPSHOT_DATE).siteId(MKT).token(token)
+                .type(FEEDTYPE).env(EnvTypeEnum.SANDBOX.name());
 
         // using null for download directory - defaults to current working directory
         GetFeedResponse getFeedResponse = feed.get(builder.build(), null);
@@ -83,7 +81,8 @@ public class FilterBySellerUserNames {
 
         // filter
         FeedFilterRequest filterRequest = new FeedFilterRequest();
-        filterRequest.setSellerNames(getSellerNameSet());
+        // set price lower and upper limit
+        filterRequest.setPriceLowerLimit(10.0);
         // set input file
         filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
 
@@ -98,11 +97,12 @@ public class FilterBySellerUserNames {
      *
      * @return
      */
-    private static Set<String> getSellerNameSet() {
-        Set<String> sellerNameSet = new HashSet<>();
-        sellerNameSet.add("pro-sports1021");
-        sellerNameSet.add("cbpetz");
-        return sellerNameSet;
+    private static Set<String> getItemIds() {
+        Set<String> itemIdSet = new HashSet<>();
+        itemIdSet.add("132029430107");
+        itemIdSet.add("132676918161");
+        itemIdSet.add("14270967132");
+        return itemIdSet;
     }
 
 }

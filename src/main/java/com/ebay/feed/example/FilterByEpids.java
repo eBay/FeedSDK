@@ -19,7 +19,6 @@ import java.util.Set;
 import com.ebay.feed.api.Feed;
 import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.constants.Constants;
-import com.ebay.feed.enums.FeedTypeEnum;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
@@ -56,13 +55,14 @@ public class FilterByEpids {
   private static final String DATE = "20180805";
   private static final String SCOPE = "ALL_ACTIVE";
   private static final String MKT = "EBAY_US";
+  private static final String FEEDTYPE = "item";
 
   public static void main(String[] args) {
 
     // create request
     FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
     builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT)
-        .token(token).type(FeedTypeEnum.ITEM);
+        .token(token).type(FEEDTYPE);
 
     // using null for download directory - defaults to current working directory
     GetFeedResponse getFeedResponse = feed.get(builder.build(), null);

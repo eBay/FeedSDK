@@ -11,13 +11,11 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ebay.feed.example;
 
 import com.ebay.feed.api.Feed;
 import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.constants.Constants;
-import com.ebay.feed.enums.FeedTypeEnum;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
@@ -26,70 +24,70 @@ import com.ebay.feed.model.feed.operation.filter.Response;
 
 /**
  * <p>
- * Example showing how to download and filter feed files based on item price. The download location
- * is default - current working directory <br>
+ * Example showing how to download and filter feed files based on item price.
+ * The download location is default - current working directory <br>
  * The filtering is performed on the unzipped file. <br>
  * So the sequence of events that are followed is :- <br>
  * - Download feed file <br>
  * - Unzip feed file <br>
  * - Filter feed file
  * </p>
- * 
+ *
  * @author shanganesh
  *
  */
 public class FilterByPrice {
 
+    // oauth token
+    static String TOKEN = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#r^0#I^3...";
 
-  // oauth token
-  static String TOKEN = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#r^0#I^3...";
+    // init feed
+    static Feed feed = new FeedImpl();
 
-  // init feed
-  static Feed feed = new FeedImpl();
+    private static final String CATEGORY = "1281";
 
-  private static final String CATEGORY = "1281";
+    // TODO : Check if the date is within 14 days, before making the call
+    private static final String DATE = "20180708";
+    private static final String SCOPE = "ALL_ACTIVE";
+    private static final String MKT = "EBAY_US";
+    private static final String FEEDTYPE = "item";
 
-  // TODO : Check if the date is within 14 days, before making the call
-  private static final String DATE = "20180708";
-  private static final String SCOPE = "ALL_ACTIVE";
-  private static final String MKT = "EBAY_US";
-  
-  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-    // create request
-    FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-    builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(TOKEN)
-        .type(FeedTypeEnum.ITEM);
+        // create request
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(TOKEN)
+        .type(FEEDTYPE);
 
-    // using null for download directory - defaults to current working directory
-    GetFeedResponse getFeedResponse = feed.get(builder.build(), null);
+        // using null for download directory - defaults to current working directory
+        GetFeedResponse getFeedResponse = feed.get(builder.build(), null);
 
-    // 0 denotes successful response
-    if (getFeedResponse.getStatusCode() != 0) {
-      System.out.println("Exception in downloading feed. Cannot proceed");
-      return;
+        // 0 denotes successful response
+        if (getFeedResponse.getStatusCode() != 0) {
+            System.out.println("Exception in downloading feed. Cannot proceed");
+            return;
+        }
+        // unzip
+        Response unzipOpResponse = feed.unzip(getFeedResponse.getFilePath());
+
+        if (unzipOpResponse.getStatusCode() != 0) {
+            System.out.println("Exception in unzipping feed. Cannot proceed");
+            return;
+        }
+
+        // filter
+        FeedFilterRequest filterRequest = new FeedFilterRequest();
+
+        // set price lower and upper lomit
+        filterRequest.setPriceLowerLimit(10.0);
+        filterRequest.setPriceUpperLimit(20.0);
+        // set input file
+        filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
+
+        Response response = feed.filter(filterRequest);
+        System.out.println("Filter status = " + response.getStatusCode());
+        System.out.println("Filtered file = " + response.getFilePath());
+
     }
-    // unzip
-    Response unzipOpResponse = feed.unzip(getFeedResponse.getFilePath());
-
-    if (unzipOpResponse.getStatusCode() != 0) {
-      System.out.println("Exception in unzipping feed. Cannot proceed");
-      return;
-    }
-    
-    // filter
-    FeedFilterRequest filterRequest = new FeedFilterRequest();
-
-    // set price lower and upper lomit
-    filterRequest.setPriceLowerLimit(10.0);
-    filterRequest.setPriceLowerLimit(20.0);
-    // set input file
-    filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
-    
-    Response response = feed.filter(filterRequest);
-    System.out.println("Filter status = " + response.getStatusCode());
-    System.out.println("Filtered file = " + response.getFilePath());
-
-  }
 
 }

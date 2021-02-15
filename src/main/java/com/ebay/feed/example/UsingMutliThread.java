@@ -18,6 +18,7 @@ import java.util.Set;
 import com.ebay.feed.api.Feed;
 import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.constants.Constants;
+import com.ebay.feed.enums.EnvTypeEnum;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
@@ -37,34 +38,48 @@ import com.ebay.feed.model.feed.operation.filter.Response;
  * - Filter feed file
  * </p>
  *
- * @author shanganesh
  *
  */
-public class FilterBySellerUserNames {
+public class UsingMutliThread {
 
-    // oauth token
-  static String TOKEN =
-      Constants.TOKEN_BEARER_PREFIX
-            + "v^1.1#i^1#r^0#I^3...";
+    // oauth token - Bearer xxx
+    static String token
+            = Constants.TOKEN_BEARER_PREFIX
+            + "v^1.1#i^1#f...";
 
     // init feed
     static Feed feed = new FeedImpl();
 
-    private static final String CATEGORY = "1281";
-
-    // TODO : Check if the date is within 14 days, before making the call
-    private static final String DATE = "20180708";
-    private static final String SCOPE = "ALL_ACTIVE";
+    private static final String CATEGORY = "625";
+    private static final String DATE = "20210125";
+    private static final String SNAPSHOT_DATE = "2021-01-29T02:00:00.000Z";
+    private static final String SCOPE = "NEWLY_LISTED";
     private static final String MKT = "EBAY_US";
-    private static final String FEEDTYPE = "item";
 
     public static void main(String[] args) {
 
+        new Thread(() -> {
+            String feedType = "item";
+            getUnzipAndFilterFeed(feedType);
+        }).start();
+
+        new Thread(() -> {
+            String feedType = "item_snapshot";
+            getUnzipAndFilterFeed(feedType);
+        }).start();
+    }
+
+    private static void getUnzipAndFilterFeed(String feedType) {
+        System.out.println("starting thread for feedType: " + feedType);
         // create request
         FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-        builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(TOKEN)
-        .type(FEEDTYPE);
-
+        if (feedType.equalsIgnoreCase("item_snapshot")) {
+            builder.categoryId(CATEGORY).snapshotDate(SNAPSHOT_DATE).siteId(MKT).token(token)
+                    .type(feedType).env(EnvTypeEnum.SANDBOX.name());
+        } else {
+            builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(token)
+                    .type(feedType).env(EnvTypeEnum.SANDBOX.name());
+        }
         // using null for download directory - defaults to current working directory
         GetFeedResponse getFeedResponse = feed.get(builder.build(), null);
 
@@ -83,14 +98,14 @@ public class FilterBySellerUserNames {
 
         // filter
         FeedFilterRequest filterRequest = new FeedFilterRequest();
-        filterRequest.setSellerNames(getSellerNameSet());
+        filterRequest.setItemIds(getItemIds());
         // set input file
         filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
 
         Response response = feed.filter(filterRequest);
         System.out.println("Filter status = " + response.getStatusCode());
         System.out.println("Filtered file = " + response.getFilePath());
-
+        System.out.println("finished first thread");
     }
 
     /**
@@ -98,11 +113,12 @@ public class FilterBySellerUserNames {
      *
      * @return
      */
-    private static Set<String> getSellerNameSet() {
-        Set<String> sellerNameSet = new HashSet<>();
-        sellerNameSet.add("pro-sports1021");
-        sellerNameSet.add("cbpetz");
-        return sellerNameSet;
+    private static Set<String> getItemIds() {
+        Set<String> itemIdSet = new HashSet<>();
+        itemIdSet.add("132029430107");
+        itemIdSet.add("132676918161");
+        itemIdSet.add("14270967132");
+        return itemIdSet;
     }
 
 }

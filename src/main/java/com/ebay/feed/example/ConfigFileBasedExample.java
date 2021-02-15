@@ -11,7 +11,6 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ebay.feed.example;
 
 import java.util.List;
@@ -23,13 +22,13 @@ import com.ebay.feed.model.oauth.AuthRequest;
 
 public class ConfigFileBasedExample {
 
-  // credentials file absolute path
-  static String credentialFilePath = "credentials.yaml";
+    // credentials file absolute path
+    static String credentialFilePath = "credentials.yaml";
 
-  // init feed
-  static Feed feed = new FeedImpl();
+    // init feed
+    static Feed feed = new FeedImpl();
 
-  public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
     // null scopes result in default values being used
     AuthRequest authRequest = new AuthRequest(credentialFilePath, null);
@@ -39,14 +38,14 @@ public class ConfigFileBasedExample {
     credentialLoader.loadCredentials();
     String token = credentialLoader.getOauthResponse().getAccessToken().get().getToken();
     
-    // expects path to the config file. The config file should be a json with the 
-    // structure mirroring the pojo ConfigFileBasedRequest.java
-    String configFilePath = "sample-config/config-file-download-unzip-filter";
-    List<Response> responses = feed.processConfigFile(configFilePath, token);
+        // expects path to the config file. The config file should be a json with the 
+        // structure mirroring the pojo ConfigFileBasedRequest.java
+        String configFilePath = "sample-config/config-file-download-unzip-filter";
+        List<Response> responses = feed.processConfigFile(configFilePath, token);
 
-    for (Response response : responses) {
-      System.out.println(response.toString());
+        for (Response response : responses) {
+            System.out.println(response.toString());
+        }
     }
-  }
 
 }
