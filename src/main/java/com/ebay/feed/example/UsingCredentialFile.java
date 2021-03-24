@@ -24,6 +24,8 @@ import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
 import com.ebay.feed.model.feed.operation.filter.FeedFilterRequest;
 import com.ebay.feed.model.feed.operation.filter.Response;
 import com.ebay.feed.model.oauth.AuthRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -40,6 +42,8 @@ import com.ebay.feed.model.oauth.AuthRequest;
  *
  */
 public class UsingCredentialFile {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsingCredentialFile.class);
 
     // credentials file absolute path
     static String credentialFilePath = "sample-credentials/credentials.yaml";
@@ -74,14 +78,14 @@ public class UsingCredentialFile {
 
         // 0 denotes successful response
         if (getFeedResponse.getStatusCode() != 0) {
-            System.out.println("Exception in downloading feed. Cannot proceed");
+            LOGGER.info("Exception in downloading feed. Cannot proceed");
             return;
         }
         // unzip
         Response unzipOpResponse = feed.unzip(getFeedResponse.getFilePath());
 
         if (unzipOpResponse.getStatusCode() != 0) {
-            System.out.println("Exception in unzipping feed. Cannot proceed");
+            LOGGER.info("Exception in unzipping feed. Cannot proceed");
             return;
         }
 
@@ -95,8 +99,8 @@ public class UsingCredentialFile {
 
         Response response = feed.filter(filterRequest);
 
-        System.out.println("Filter status = " + response.getStatusCode());
-        System.out.println("Filtered file = " + response.getFilePath());
+        LOGGER.info("Filter status = " + response.getStatusCode());
+        LOGGER.info("Filtered file = " + response.getFilePath());
 
     }
 

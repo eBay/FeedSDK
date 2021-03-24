@@ -44,8 +44,8 @@ public class AuthRequest {
 
     public AuthRequest(String configFilePath, List<String> scopes) {
         super();
-        this.configFilePath = configFilePath;
-
+            this.configFilePath = configFilePath;
+       
         if (scopes == null) {
             List<String> defaultScopes = new ArrayList<>();
             defaultScopes.add("https://api.ebay.com/oauth/api_scope");

@@ -11,9 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ebay.feed.model.feed.operation.filter;
-
 
 /**
  * <div>
@@ -33,77 +31,78 @@ package com.ebay.feed.model.feed.operation.filter;
  * <br>
  * <b>filePath</b>
  * <ul>
- * <li>null - Failure non null value - Path of the file that was created as a result of this operation</li>
+ * <li>null - Failure non null value - Path of the file that was created as a
+ * result of this operation</li>
  * </ul>
  * <br>
  * <b>appliedFilters</b> - List of all the filters that were applied
- * 
+ *
  * </div>
- * 
+ *
  * @author shanganesh
  *
  */
 public class Response {
 
-  private FeedFilterRequest appliedFilters;
-  private Integer statusCode;
-  private String message;
-  private String filePath;
+    private FeedFilterRequest appliedFilters;
+    private Integer statusCode;
+    private String message;
+    private String filePath;
 
-  public Integer getStatusCode() {
-    return statusCode;
-  }
+    public Integer getStatusCode() {
+        return statusCode;
+    }
 
-  public void setStatusCode(Integer statusCode) {
-    this.statusCode = statusCode;
-  }
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
 
-  public String getFilePath() {
-    return filePath;
-  }
+    public String getFilePath() {
+        return filePath;
+    }
 
-  public void setFilePath(String filePath) {
-    this.filePath = filePath;
-  }
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-  public String getMessage() {
-    return message;
-  }
+    public String getMessage() {
+        return message;
+    }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-  public FeedFilterRequest getAppliedFilters() {
-    return appliedFilters;
-  }
+    public FeedFilterRequest getAppliedFilters() {
+        return appliedFilters;
+    }
 
-  public void setAppliedFilters(FeedFilterRequest appliedFilters) {
-    this.appliedFilters = appliedFilters;
-  }
+    public void setAppliedFilters(FeedFilterRequest appliedFilters) {
+        this.appliedFilters = appliedFilters;
+    }
 
-  /**
-   * 
-   * @param statusCode 0 success
-   * @param message Detailed message regarding the error
-   * @param filePath In case of success, the path to the resulting file
-   * @param appliedFilters Applied filters
-   */
-  public Response(Integer statusCode, String message, String filePath,
-      FeedFilterRequest appliedFilters) {
-    super();
-    this.appliedFilters = appliedFilters;
-    this.statusCode = statusCode;
-    this.message = message;
-    this.filePath = filePath;
-  }
+    /**
+     *
+     * @param statusCode 0 success
+     * @param message Detailed message regarding the error
+     * @param filePath In case of success, the path to the resulting file
+     * @param appliedFilters Applied filters
+     */
+    public Response(Integer statusCode, String message, String filePath,
+            FeedFilterRequest appliedFilters) {
+        super();
+        this.appliedFilters = appliedFilters;
+        this.statusCode = statusCode;
+        this.message = message;
+        this.filePath = filePath;
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("Response [appliedFilters=").append(appliedFilters).append(", statusCode=")
-        .append(statusCode).append(", message=").append(message).append(", filePath=")
-        .append(filePath).append("]");
-    return builder.toString();
-  }
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Response [appliedFilters=").append(appliedFilters).append(", statusCode=")
+                .append(statusCode).append(", message=").append(message).append(", filePath=")
+                .append(filePath).append("]");
+        return builder.toString();
+    }
 }
