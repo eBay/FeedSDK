@@ -11,6 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+
 package com.ebay.feed.util;
 
 import java.util.HashSet;
@@ -21,40 +22,40 @@ import com.ebay.feed.model.feed.operation.filter.FeedFilterRequest;
 
 public class FilterUtilTest {
 
-    FilterUtil filterUtil = new FilterUtil();
+  FilterUtil filterUtil = new FilterUtil();
 
-    @Test
-    public void evaluateNegativeTest() {
+  @Test
+  public void evaluateNegativeTest() {
 
-        FeedFilterRequest request = new FeedFilterRequest();
-        request.setLeafCategoryIds(getFilterSet());;
-        Assert.assertTrue(filterUtil.evaluate(getLine("123"), request));
+    FeedFilterRequest request = new FeedFilterRequest();
+    request.setLeafCategoryIds(getFilterSet());;
+    Assert.assertTrue(filterUtil.evaluate(getLine("123"), request));
 
+  }
+  
+  @Test
+  public void evaluatePositiveTest() {
+
+    FeedFilterRequest request = new FeedFilterRequest();
+    request.setLeafCategoryIds(getFilterSet());;
+    Assert.assertFalse(filterUtil.evaluate(getLine("456"), request));
+
+  }
+
+  private Set<String> getFilterSet() {
+    Set<String> filterSet = new HashSet<>();
+    filterSet.add("123");
+    return filterSet;
+  }
+
+  private String[] getLine(String filterValue) {
+
+    String[] arr = new String[50];
+
+    for (int i = 0; i < 50; i++) {
+      arr[i] = filterValue;
     }
-
-    @Test
-    public void evaluatePositiveTest() {
-
-        FeedFilterRequest request = new FeedFilterRequest();
-        request.setLeafCategoryIds(getFilterSet());;
-        Assert.assertFalse(filterUtil.evaluate(getLine("456"), request));
-
-    }
-
-    private Set<String> getFilterSet() {
-        Set<String> filterSet = new HashSet<>();
-        filterSet.add("123");
-        return filterSet;
-    }
-
-    private String[] getLine(String filterValue) {
-
-        String[] arr = new String[50];
-
-        for (int i = 0; i < 50; i++) {
-            arr[i] = filterValue;
-        }
-        return arr;
-    }
+    return arr;
+  }
 
 }

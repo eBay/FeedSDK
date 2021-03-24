@@ -24,8 +24,6 @@ import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
 import com.ebay.feed.model.feed.operation.filter.FeedFilterRequest;
 import com.ebay.feed.model.feed.operation.filter.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -43,8 +41,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class UsingMutliThread {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UsingMutliThread.class);
 
     // oauth token - Bearer xxx
     static String token
@@ -74,7 +70,7 @@ public class UsingMutliThread {
     }
 
     private static void getUnzipAndFilterFeed(String feedType) {
-        LOGGER.info("starting thread for feedType: " + feedType);
+        System.out.println("starting thread for feedType: " + feedType);
         // create request
         FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
         if (feedType.equalsIgnoreCase("item_snapshot")) {
@@ -89,14 +85,14 @@ public class UsingMutliThread {
 
         // 0 denotes successful response
         if (getFeedResponse.getStatusCode() != 0) {
-            LOGGER.info("Exception in downloading feed. Cannot proceed");
+            System.out.println("Exception in downloading feed. Cannot proceed");
             return;
         }
         // unzip
         Response unzipOpResponse = feed.unzip(getFeedResponse.getFilePath());
 
         if (unzipOpResponse.getStatusCode() != 0) {
-            LOGGER.info("Exception in unzipping feed. Cannot proceed");
+            System.out.println("Exception in unzipping feed. Cannot proceed");
             return;
         }
 
@@ -107,9 +103,9 @@ public class UsingMutliThread {
         filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
 
         Response response = feed.filter(filterRequest);
-        LOGGER.info("Filter status = " + response.getStatusCode());
-        LOGGER.info("Filtered file = " + response.getFilePath());
-        LOGGER.info("finished first thread");
+        System.out.println("Filter status = " + response.getStatusCode());
+        System.out.println("Filtered file = " + response.getFilePath());
+        System.out.println("finished first thread");
     }
 
     /**

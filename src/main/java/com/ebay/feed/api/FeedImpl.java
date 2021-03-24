@@ -51,7 +51,6 @@ import com.ebay.feed.validator.FeedValidator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.Date;
-import java.util.logging.Level;
 
 /**
  * <div>
@@ -349,26 +348,9 @@ public class FeedImpl implements Feed {
 
                 //this block will not execute if token passed direcrly. Backward compatibile
                 if (isCredentialLoaded) {
-                    try {
-                        Date currentTime = new Date();
-                        //token refresh on the fly from config file to support resume capability.
-                        if (accessToken.getExpiresOn().before(currentTime)) {
-                            LOGGER.debug("Old Token expiry time = {}", accessToken.getExpiresOn());
-                            accessToken = updateAccessTokenOnTheFly(credentialLoader, feedRequest, requestBuilder);
-                            LOGGER.info("Got refresh token on the fly and New Token Expiry time = {}", accessToken.getExpiresOn());
-                        }
-                    } catch (Exception e) {
-                        LOGGER.error("Exception in fetching the new access token " + e.getMessage());
+                    if (checkTokenExpiry(accessToken, credentialLoader, feedRequest, requestBuilder)) {
                         return new GetFeedResponse(Constants.FAILURE_CODE, Constants.FAILURE, null, null);
                     }
-                }
-
-                try {
-                    LOGGER.debug("Sleeping Thread for One Hour to test Resume Capability");
-                    Thread.sleep(3600000);
-                    LOGGER.debug("Thread awaked after One Hour");
-                } catch (InterruptedException ex) {
-                    LOGGER.error("ERROR while sleeping ", ex);
                 }
 
                 responseFlag = invokeIteratively(requestBuilder.build(), path);
@@ -389,6 +371,30 @@ public class FeedImpl implements Feed {
             LOGGER.debug("First API Response is error. Aborting...");
             return new GetFeedResponse(Constants.FAILURE_CODE, Constants.FAILURE, null, null);
         }
+    }
+
+    /**
+     * 
+     * @param accessToken
+     * @param credentialLoader
+     * @param feedRequest
+     * @param requestBuilder
+     * @return 
+     */
+    private boolean checkTokenExpiry(AccessToken accessToken, CredentialLoader credentialLoader, FeedRequest feedRequest, Request.Builder requestBuilder) {
+        try {
+            Date currentTime = new Date();
+            //token refresh on the fly from config file to support resume capability.
+            if (accessToken.getExpiresOn().before(currentTime)) {
+                LOGGER.debug("Old Token expiry time = {}", accessToken.getExpiresOn());
+                accessToken = updateAccessTokenOnTheFly(credentialLoader, feedRequest, requestBuilder);
+                LOGGER.info("Got refresh token on the fly and New Token Expiry time = {}", accessToken.getExpiresOn());
+            }
+        } catch (Exception e) {
+            LOGGER.info("Exception in fetching the new access token " + e.getMessage());
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -430,7 +436,7 @@ public class FeedImpl implements Feed {
 
         InvokeResponse responseFlag = null;
 
-        try ( Response response = client.newCall(request).execute()) {
+        try (Response response = client.newCall(request).execute()) {
 
             if (!response.isSuccessful()) {
                 LOGGER.debug("Error in API response - status = {}, body = {}", response.code(), response

@@ -11,58 +11,57 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+
 package com.ebay.feed.api;
 
-import java.io.IOException;
 import com.ebay.feed.model.feed.operation.taxonomy.CategoryResponse;
+
 
 /**
  * <div>
  * Taxonomy interface which consists of the following capabilities
  * <ul>
  * <li>
- * <b>getCategoryTreeId</b> - Get the category tree id for the marketplace. For
- * EBAY_US, it returns 0
+ * <b>getCategoryTreeId</b> - Get the category tree id for the marketplace. For EBAY_US, it returns 0
  * </li>
  * <li>
- * <b>loadLeafCategories</b> - Creates a map between level two categories to
- * leaf categories, and level three categories to leaf categories. Useful when
- * filtering on level two or level three categories
+ * <b>loadLeafCategories</b> - Creates a map between level two categories to leaf categories,
+ * and level three categories to leaf categories. Useful when filtering on level two or level three
+ * categories
  * </li>
- *
+ *  
  * </ul>
  * </div>
- *
  * @author shanganesh
  *
  */
 public interface Taxonomy {
 
-    /**
-     * <p>
-     * Returns the category tree id for the marketplace
-     *
-     * </p>
-     *
-     * @param token OAUth token
-     * @param marketplaceId A string representing the marketplace : EBAY_US
-     * @return string The category tree id for the marketplace
-     */
-    public String getCategoryTreeId(String token, String marketplaceId);
+  /**
+   * <p>
+   * Returns the category tree id for the marketplace
+   * 
+   * </p>
+   * 
+   * @param token OAUth token
+   * @param marketplaceId A string representing the marketplace : EBAY_US
+   * @return string The category tree id for the marketplace
+   */
+  public String getCategoryTreeId(String token, String marketplaceId);
 
-    /**
-     * <p>
-     *
-     * Loads the mapping between all level 'n' categories to leaf categories.
-     * Currently supported values for 'n' are 2,3
-     *
-     * </p>
-     *
-     * @param token OAUth token
-     * @param categoryTreeId The category tree id for the marketplace
-     * @param categoryId - Level one category id
-     * @return The category response for the marketplace and category id
-     */
-    public CategoryResponse loadLeafCategories(String token, String categoryTreeId, String categoryId);
+  /**
+   * <p>
+   * 
+   * Loads the mapping between all level 'n' categories to leaf categories.
+   * Currently supported values for 'n' are 2,3
+   * 
+   * </p>
+   * 
+   * @param token OAUth token
+   * @param categoryTreeId The category tree id for the marketplace
+   * @param categoryId - Level one category id
+   * @return The category response for the marketplace and category id
+   */
+  public CategoryResponse loadLeafCategories(String token, String categoryTreeId, String categoryId);
 
 }

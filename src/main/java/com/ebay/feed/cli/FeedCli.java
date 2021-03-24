@@ -57,8 +57,7 @@ public class FeedCli {
 
         options.addOption("help", false, "display help");
 
-        /**
-         * *
+    /***
          * options for downloading the file
          */
         // date
@@ -173,34 +172,28 @@ public class FeedCli {
         // populate feed request
         FeedRequestBuilder builder = new FeedRequestBuilder();
 
-        if (cmd.hasOption("dt")) {
+        if (cmd.hasOption("dt"))
             builder.date(cmd.getOptionValue("dt"));
-        }
 
-        if (cmd.hasOption("sdt")) {
+        if (cmd.hasOption("sdt")) 
             builder.snapshotDate(cmd.getOptionValue("sdt"));
-        }
 
-        if (cmd.hasOption("c1")) {
+        if (cmd.hasOption("c1")) 
             builder.categoryId(cmd.getOptionValue("c1"));
-        }
 
-        if (cmd.hasOption("mkt")) {
+        if (cmd.hasOption("mkt")) 
             builder.siteId(cmd.getOptionValue("mkt"));
-        }
 
-        if (cmd.hasOption("scope")) {
+        if (cmd.hasOption("scope")) 
             builder.feedScope(cmd.getOptionValue("scope"));
-        }
 
-        if (cmd.hasOption("token")) {
+        if (cmd.hasOption("token"))
             builder.token("Bearer " + cmd.getOptionValue("token"));
-        }
 
-        if (cmd.hasOption("env")) {
+    if (cmd.hasOption("env")){
             builder.env(cmd.getOptionValue("env"));
-        }
-
+    }
+        
         if (cmd.hasOption("type")) {
             builder.type(cmd.getOptionValue("type"));
         } else {
@@ -217,16 +210,14 @@ public class FeedCli {
         String optionalDownloadPath = null;
         List<String> scopes = null;
 
-        LOGGER.info(cmd.getOptionValue("lf"));
-        if (cmd.hasOption("lf")) {
+        System.out.println(cmd.getOptionValue("lf"));
+    if (cmd.hasOption("lf"))
             filterRequest
                     .setLeafCategoryIds(new HashSet<String>(Arrays.asList(cmd.getOptionValues("lf"))));
-        }
 
-        if (cmd.hasOption("c3f")) {
+    if (cmd.hasOption("c3f"))
             filterRequest.setLevelThreeCategories(new HashSet<String>(Arrays.asList(cmd
                     .getOptionValues("c3f"))));
-        }
 
         if (cmd.hasOption("c2f")) {
             filterRequest.setLevelTwoCategories(new HashSet<String>(Arrays.asList(cmd
@@ -346,7 +337,7 @@ public class FeedCli {
         // filter
         filterRequest.setInputFilePath(unzipResponse.getFilePath());
         Response filterResponse = feed.filter(filterRequest);
-        LOGGER.info("Filter response = " + filterResponse.toString());
+        System.out.println("Filter response = " + filterResponse.toString());
     }
 
 }

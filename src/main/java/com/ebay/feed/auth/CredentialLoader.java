@@ -29,9 +29,8 @@ import com.ebay.feed.model.oauth.AuthRequest;
  * <p>
  * Responsible for loading consumer credentials and generating token.
  *
- * In order to generate token, the {@link #loadCredentials() loadCredentials}
- * method needs to be invoked, which loads the credentials from the provided
- * config file.
+ * In order to generate token, the {@link #loadCredentials() loadCredentials} method needs to be
+ * invoked, which loads the credentials from the provided config file.
  *
  * Once the credentials are loaded, the token can be obtained by invoking the
  * {@link #getOauthResponse() getOauthResponse}
@@ -61,9 +60,8 @@ public class CredentialLoader {
      */
     public void loadCredentials() throws Exception {
 
-        if (authRequest == null) {
+    if (authRequest == null)
             throw new Exception("null AuthRequest");
-        }
 
         LOGGER.debug("****** Begin loadCredentials with configPath = {}",
                 authRequest.getConfigFilePath());
@@ -102,7 +100,7 @@ public class CredentialLoader {
      * Generates oauth token, based on the loaded credentials
      * </p>
      *
-     * @param environment
+     * @param environment 
      * @return Returns the OAuthResponse which contains the token
      * @throws IOException Thrown if file is not found
      */
@@ -114,7 +112,7 @@ public class CredentialLoader {
         OAuthResponse res = null;
         //checking environment for token 
         if (environment.equalsIgnoreCase("SANDBOX")) {
-            res = api.getApplicationToken(Environment.SANDBOX, authRequest.getScopes());
+        res = api.getApplicationToken(Environment.SANDBOX, authRequest.getScopes());
         } else {
             res = api.getApplicationToken(Environment.PRODUCTION, authRequest.getScopes());
         }
