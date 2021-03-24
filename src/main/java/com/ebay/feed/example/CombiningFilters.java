@@ -23,6 +23,8 @@ import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
 import com.ebay.feed.model.feed.operation.filter.FeedFilterRequest;
 import com.ebay.feed.model.feed.operation.filter.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -46,6 +48,8 @@ import com.ebay.feed.model.feed.operation.filter.Response;
  */
 public class CombiningFilters {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CombiningFilters.class);
+
     // oauth token with Bearer prefix
     static String token = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#f^0#I^3....";
 
@@ -64,14 +68,14 @@ public class CombiningFilters {
         // create request
         FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
         builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(token)
-        .type(FEEDTYPE);
+                .type(FEEDTYPE);
 
         // using null for download directory - defaults to current working directory
         GetFeedResponse getFeedResponse = feed.get(builder.build(), null);
 
         // 0 denotes successful response
         if (getFeedResponse.getStatusCode() != 0) {
-            System.out.println("Exception in downloading feed. Cannot proceed");
+            LOGGER.info("Exception in downloading feed. Cannot proceed");
             return;
         }
 
@@ -79,7 +83,7 @@ public class CombiningFilters {
         Response unzipOpResponse = feed.unzip(getFeedResponse.getFilePath());
 
         if (unzipOpResponse.getStatusCode() != 0) {
-            System.out.println("Exception in unzipping feed. Cannot proceed");
+            LOGGER.info("Exception in unzipping feed. Cannot proceed");
             return;
         }
 
@@ -101,8 +105,8 @@ public class CombiningFilters {
 
         Response response = feed.filter(filterRequest);
 
-        System.out.println("Filter status = " + response.getStatusCode());
-        System.out.println("Filtered file = " + response.getFilePath());
+        LOGGER.info("Filter status = " + response.getStatusCode());
+        LOGGER.info("Filtered file = " + response.getFilePath());
 
     }
 

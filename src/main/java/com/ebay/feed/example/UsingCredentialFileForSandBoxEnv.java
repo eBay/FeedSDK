@@ -25,6 +25,8 @@ import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
 import com.ebay.feed.model.feed.operation.filter.FeedFilterRequest;
 import com.ebay.feed.model.feed.operation.filter.Response;
 import com.ebay.feed.model.oauth.AuthRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -40,6 +42,8 @@ import com.ebay.feed.model.oauth.AuthRequest;
  *
  */
 public class UsingCredentialFileForSandBoxEnv {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsingCredentialFileForSandBoxEnv.class);
 
     // credentials file absolute path
     static String credentialFilePath = "credentials.yaml";
@@ -72,18 +76,18 @@ public class UsingCredentialFileForSandBoxEnv {
 
         // using null for download directory - defaults to current working directory
         // passing credentialFilePath as required for token refresh on the fly to support resume capability while downloading feed
-        GetFeedResponse getFeedResponse = feed.get(builder.build(), null,credentialFilePath);
+        GetFeedResponse getFeedResponse = feed.get(builder.build(), null, credentialFilePath);
 
         // 0 denotes successful response
         if (getFeedResponse.getStatusCode() != 0) {
-            System.out.println("Exception in downloading feed. Cannot proceed");
+            LOGGER.info("Exception in downloading feed. Cannot proceed");
             return;
         }
         // unzip
         Response unzipOpResponse = feed.unzip(getFeedResponse.getFilePath());
 
         if (unzipOpResponse.getStatusCode() != 0) {
-            System.out.println("Exception in unzipping feed. Cannot proceed");
+            LOGGER.info("Exception in unzipping feed. Cannot proceed");
             return;
         }
 
@@ -97,8 +101,8 @@ public class UsingCredentialFileForSandBoxEnv {
 
         Response response = feed.filter(filterRequest);
 
-        System.out.println("Filter status = " + response.getStatusCode());
-        System.out.println("Filtered file = " + response.getFilePath());
+        LOGGER.info("Filter status = " + response.getStatusCode());
+        LOGGER.info("Filtered file = " + response.getFilePath());
 
     }
 
