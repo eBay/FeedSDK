@@ -299,9 +299,14 @@ usage: Feed SDK CLI
 
 For example, to use the command line options to download, unzip and filter feed files
 
-Using token
+Using token For Item
 ```
-java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -dt 20180701 -c1 1281 -scope ALL_ACTIVE -lf 46310 177789 -mkt EBAY_US -c3f 177792 116381 -pricelf 2 -priceuf 100 -locf US CN -token xxx
+java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -dt 20180701 -type ITEM -c1 1281 -scope ALL_ACTIVE -lf 46310 177789 -mkt EBAY_US -c3f 177792 116381 -pricelf 2 -priceuf 100 -locf US CN -token xxx
+```
+
+Using token For ITEM_SNAPSHOT 
+```
+java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -sdt 2021-06-10T02:00:00.000Z -type ITEM_SNAPSHOT -env SANDBOX -c1 625 -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -token xxx
 ```
 
 Using credentials file
