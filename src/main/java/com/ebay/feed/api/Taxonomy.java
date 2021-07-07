@@ -14,7 +14,6 @@
 
 package com.ebay.feed.api;
 
-import java.io.IOException;
 import com.ebay.feed.model.feed.operation.taxonomy.CategoryResponse;
 
 

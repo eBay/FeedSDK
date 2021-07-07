@@ -11,7 +11,6 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ebay.feed.enums;
 
 /**
@@ -23,5 +22,14 @@ package com.ebay.feed.enums;
  */
 public enum FeedTypeEnum {
 
-  ITEM
+    ITEM, ITEM_SNAPSHOT;
+
+    public static FeedTypeEnum getFeedEnum(String name) {
+        for (FeedTypeEnum feedEnum : FeedTypeEnum.values()) {
+            if (feedEnum.name().equalsIgnoreCase(name)) {
+                return feedEnum;
+            }
+        }
+        return null;
+    }
 }

@@ -11,7 +11,6 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ebay.feed.example;
 
 import java.util.List;
@@ -20,33 +19,37 @@ import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.auth.CredentialLoader;
 import com.ebay.feed.model.feed.operation.filter.Response;
 import com.ebay.feed.model.oauth.AuthRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConfigFileBasedExample {
 
-  // credentials file absolute path
-  static String credentialFilePath = "credentials.yaml";
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigFileBasedExample.class);
 
-  // init feed
-  static Feed feed = new FeedImpl();
+    // credentials file absolute path
+    static String credentialFilePath = "credentials.yaml";
 
-  public static void main(String[] args) throws Exception {
+    // init feed
+    static Feed feed = new FeedImpl();
 
-    // null scopes result in default values being used
-    AuthRequest authRequest = new AuthRequest(credentialFilePath, null);
-    
-    // load credentials and generate token
-    CredentialLoader credentialLoader = new CredentialLoader(authRequest);
-    credentialLoader.loadCredentials();
-    String token = credentialLoader.getOauthResponse().getAccessToken().get().getToken();
-    
-    // expects path to the config file. The config file should be a json with the 
-    // structure mirroring the pojo ConfigFileBasedRequest.java
-    String configFilePath = "sample-config/config-file-download-unzip-filter";
-    List<Response> responses = feed.processConfigFile(configFilePath, token);
+    public static void main(String[] args) throws Exception {
 
-    for (Response response : responses) {
-      System.out.println(response.toString());
+        // null scopes result in default values being used
+        AuthRequest authRequest = new AuthRequest(credentialFilePath, null);
+
+        // load credentials and generate token
+        CredentialLoader credentialLoader = new CredentialLoader(authRequest);
+        credentialLoader.loadCredentials();
+        String token = credentialLoader.getOauthResponse().getAccessToken().get().getToken();
+
+        // expects path to the config file. The config file should be a json with the 
+        // structure mirroring the pojo ConfigFileBasedRequest.java
+        String configFilePath = "sample-config/config-file-download-unzip-filter";
+        List<Response> responses = feed.processConfigFile(configFilePath, token);
+
+        for (Response response : responses) {
+            LOGGER.info(response.toString());
+        }
     }
-  }
 
 }

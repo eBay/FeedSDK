@@ -11,7 +11,6 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ebay.feed.util;
 
 import okhttp3.Request;
@@ -21,100 +20,132 @@ import org.junit.Test;
 
 import com.ebay.feed.constants.Constants;
 import com.ebay.feed.enums.EnvTypeEnum;
-import com.ebay.feed.enums.FeedTypeEnum;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
 
 public class FeedUtilTest {
 
-  FeedUtil feedUtil = new FeedUtil();
+    FeedUtil feedUtil = new FeedUtil();
 
-  @Test
-  public void getFinalUrlInvalidTypeTest() {
+    @Test
+    public void getFinalUrlInvalidTypeTest() {
 
-    String expectedUrl =
-        Constants.FEED_API_PROD_BASE + Constants.ITEM_RESOURCE_SCOPE + "ALL_ACTIVE"
-            + Constants.QUERY_PARAM_SEPARATOR + Constants.QUERY_CATEGORY_ID + "1"
-            + Constants.QUERY_PARAM_SEPARATOR + Constants.QUERY_DATE + "20180101";
-    FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-    builder.type(FeedTypeEnum.ITEM);
-    builder.categoryId("1");
-    builder.feedScope("ALL_ACTIVE");
-    builder.date("20180101");
+        String expectedUrl
+                = Constants.FEED_API_PROD_BASE + Constants.ITEM_RESOURCE_SCOPE + "ALL_ACTIVE"
+                + Constants.QUERY_PARAM_SEPARATOR + Constants.QUERY_CATEGORY_ID + "1"
+                + Constants.QUERY_PARAM_SEPARATOR + Constants.QUERY_DATE + "20180101";
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.type("item");
+        builder.categoryId("1");
+        builder.feedScope("ALL_ACTIVE");
+        builder.date("20180101");
 
-    Assert.assertEquals(expectedUrl, feedUtil.getFinalUrl(builder.build()));
-  }
+        Assert.assertEquals(expectedUrl, feedUtil.getFinalUrl(builder.build()));
+    }
 
-  @Test
-  public void generateRequestTest() {
+    @Test
+    public void generateRequestTest() {
 
-    Request.Builder requestBuilder = new Request.Builder();
+        Request.Builder requestBuilder = new Request.Builder();
 
-    FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-    builder.type(FeedTypeEnum.ITEM);
-    builder.categoryId("1");
-    builder.feedScope("ALL_ACTIVE");
-    builder.date("20180101");
-    builder.token(Constants.TOKEN_BEARER_PREFIX + "v1...");
-    builder.siteId("EBAY_US");
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.type("item");
+        builder.categoryId("1");
+        builder.feedScope("ALL_ACTIVE");
+        builder.date("20180101");
+        builder.token(Constants.TOKEN_BEARER_PREFIX + "v1...");
+        builder.siteId("EBAY_US");
 
-    feedUtil.generateRequest(builder.build(), requestBuilder);
+        feedUtil.generateRequest(builder.build(), requestBuilder);
 
-    Request request = requestBuilder.build();
-    Assert.assertNotNull(request.header(Constants.AUTHORIZATION_HEADER));
-    Assert.assertNotNull(request.header(Constants.MARKETPLACE_HEADER));
-    Assert.assertNotNull(request.header(Constants.CONTENT_TYPE_HEADER));
-    Assert.assertNotNull(request.header(Constants.ACCEPT_HEADER));
-  }
+        Request request = requestBuilder.build();
+        Assert.assertNotNull(request.header(Constants.AUTHORIZATION_HEADER));
+        Assert.assertNotNull(request.header(Constants.MARKETPLACE_HEADER));
+        Assert.assertNotNull(request.header(Constants.CONTENT_TYPE_HEADER));
+        Assert.assertNotNull(request.header(Constants.ACCEPT_HEADER));
+    }
 
-  @Test
-  public void generateFileNameTest() {
+    @Test
+    public void generateItemSnapshotRequestTest() {
 
-    String expectedFileName = "item_daily-1-20180101-EBAY_US.gz";
-    FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-    builder.type(FeedTypeEnum.ITEM);
-    builder.categoryId("1");
-    builder.feedScope("NEWLY_LISTED");
-    builder.date("20180101");
-    builder.siteId("EBAY_US");
-    Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
-  }
+        Request.Builder requestBuilder = new Request.Builder();
 
-  @Test
-  public void generateFileNameBootstrapTest() {
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.type("ITEM_SNAPSHOT");
+        builder.categoryId("1");
+        builder.snapshotDate("2018-08-05T02:00:00.000Z");
+        builder.token(Constants.TOKEN_BEARER_PREFIX + "v1...");
+        builder.siteId("EBAY_US");
 
-    String expectedFileName = "item_bootstrap-1-20180101-EBAY_US.gz";
-    FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-    builder.type(FeedTypeEnum.ITEM);
-    builder.categoryId("1");
-    builder.feedScope("ALL_ACTIVE");
-    builder.date("20180101");
-    builder.siteId("EBAY_US");
-    Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
-  }
-  
-  @Test
-  public void getChunkSizeLimitTest() {
-	  // Prod
-    Long expectedChunkSize =
-        Constants.PROD_CHUNK_SIZE;
-    FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-    builder.type(FeedTypeEnum.ITEM);
-    builder.categoryId("1");
-    builder.feedScope("ALL_ACTIVE");
-    builder.date("20180101");
-    
-    Assert.assertEquals(expectedChunkSize, feedUtil.getChunkSizeLimit(builder.build()));
+        feedUtil.generateRequest(builder.build(), requestBuilder);
 
-	  // Sandbox
-    expectedChunkSize =
-            Constants.SANDBOX_CHUNK_SIZE;
-    builder = new FeedRequestBuilder();
-    builder.type(FeedTypeEnum.ITEM);
-    builder.categoryId("1");
-    builder.feedScope("ALL_ACTIVE");
-    builder.date("20180101");
-    builder.env(EnvTypeEnum.SANDBOX.name());
-    Assert.assertEquals(expectedChunkSize, feedUtil.getChunkSizeLimit(builder.build()));
-  }
+        Request request = requestBuilder.build();
+        Assert.assertNotNull(request.header(Constants.AUTHORIZATION_HEADER));
+        Assert.assertNotNull(request.header(Constants.MARKETPLACE_HEADER));
+        Assert.assertNotNull(request.header(Constants.CONTENT_TYPE_HEADER));
+        Assert.assertNotNull(request.header(Constants.ACCEPT_HEADER));
+    }
+
+    @Test
+    public void generateFileNameSnapshotTest() {
+
+        String expectedFileName = "item_snapshot-1281-2018-08-05T020000.000Z-EBAY_US.gz";
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.type("item_snapshot");
+        builder.categoryId("1281");
+        builder.snapshotDate("2018-08-05T020000.000Z");
+        builder.siteId("EBAY_US");
+        Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
+    }
+
+    @Test
+    public void generateFileNameTest() {
+
+        String expectedFileName = "item_daily-1-20180101-EBAY_US.gz";
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.type("item");
+        builder.categoryId("1");
+        builder.feedScope("NEWLY_LISTED");
+        builder.date("20180101");
+        builder.siteId("EBAY_US");
+        Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
+    }
+
+    @Test
+    public void generateFileNameBootstrapTest() {
+
+        String expectedFileName = "item_bootstrap-1-20180101-EBAY_US.gz";
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.type("item");
+        builder.categoryId("1");
+        builder.feedScope("ALL_ACTIVE");
+        builder.date("20180101");
+        builder.siteId("EBAY_US");
+        Assert.assertEquals(expectedFileName, feedUtil.generateFileName(builder.build()));
+    }
+
+    @Test
+    public void getChunkSizeLimitTest() {
+        // Prod
+        Long expectedChunkSize
+                = Constants.PROD_CHUNK_SIZE;
+        FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
+        builder.type("item");
+        builder.categoryId("1");
+        builder.feedScope("ALL_ACTIVE");
+        builder.date("20180101");
+
+        Assert.assertEquals(expectedChunkSize, feedUtil.getChunkSizeLimit(builder.build()));
+
+        // Sandbox
+        expectedChunkSize
+                = Constants.SANDBOX_CHUNK_SIZE;
+        builder = new FeedRequestBuilder();
+        builder.type("item");
+        builder.categoryId("1");
+        builder.feedScope("ALL_ACTIVE");
+        builder.date("20180101");
+        builder.env(EnvTypeEnum.SANDBOX.name());
+        Assert.assertEquals(expectedChunkSize, feedUtil.getChunkSizeLimit(builder.build()));
+    }
 }

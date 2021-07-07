@@ -11,60 +11,69 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ebay.feed.constants;
 
 public class Constants {
 
-  /**
-   * Base path for the feed api
-   */
-  public static final String FEED_API_PROD_BASE = "https://api.ebay.com/buy/feed/v1_beta/";
-  
-  public static final String FEED_API_SANDBOX_BASE = "https://api.sandbox.ebay.com/buy/feed/v1_beta/";
-  
-  // max content that can be downloaded in one request, in bytes
-  public static final Long PROD_CHUNK_SIZE = 104857600L;
-  public static final Long SANDBOX_CHUNK_SIZE = 10485760L;
-  
-  // timeout for http client
-  public static final Integer TIMEOUT = 30;
+    /**
+     * Base path for the feed api
+     */
+    public static final String FEED_API_PROD_BASE = "https://api.ebay.com/buy/feed/v1_beta/";
 
-  // api related constants
-  public static final String AUTHORIZATION_HEADER = "Authorization";
-  
-  // taxonomy
-  public static final String TAXONOMY_DEFAULT =
-      "https://api.ebay.com/commerce/taxonomy/v1_beta/get_default_category_tree_id?marketplace_id=";
-  
-  public static final String TAXONOMY_CATEGORY_SUBTREE_BASE = "https://api.ebay.com/commerce/taxonomy/v1_beta/category_tree/";
-  public static final String TAXONOMY_CATEGORY_SUBTREE_QUERY = "/get_category_subtree?category_id=";
-  
-  // status and util related constants
-  public static final String SUCCESS = "Success";
-  public static final Integer SUCCESS_CODE = 0;
-  public static final String FAILURE = "Failure";
-  public static final Integer FAILURE_CODE = -1;
-  public static final String RANGE_PREFIX = "bytes=0-";
-  public static final String RANGE_HEADER = "Range";
-  public static final String CONTENT_RANGE_HEADER = "Content-Range";
-  public static final String LAST_MODIFIED_DATE_HEADER = "Last-Modified";
-  public static final String TOKEN_BEARER_PREFIX = "Bearer ";
-  public static final String TRUE = "true";
-  public static final String FALSE = "false";
-  public static final String ITEM_RESOURCE_SCOPE = "item?feed_scope=";
-  public static final String QUERY_PARAM_SEPARATOR = "&";
-  public static final String QUERY_CATEGORY_ID = "category_id=";
-  public static final String QUERY_DATE = "date=";
-  public static final String MARKETPLACE_HEADER = "X-EBAY-C-MARKETPLACE-ID";
-  public static final String CONTENT_TYPE_HEADER = "Content-type";
-  public static final String ACCEPT_HEADER = "Accept";
+    public static final String FEED_API_SANDBOX_BASE = "https://api.sandbox.ebay.com/buy/feed/v1_beta/";
 
-  public static final String ALL_ACTIVE = "ALL_ACTIVE";
-  
-  public static final String BOOTSTRAP = "bootstrap";
-  public static final String DAILY = "daily";
-  public static final String SEPARATOR = "\\t";
-  public static final String ITEM_ID = "ItemId";
-  
+    // max content that can be downloaded in one request, in bytes
+    public static final Long PROD_CHUNK_SIZE = 104857600L;
+    public static final Long SANDBOX_CHUNK_SIZE = 10485760L;
+
+    // timeout for http client
+    public static final Integer TIMEOUT = 30;
+
+    // api related constants
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+
+    // taxonomy
+    public static final String TAXONOMY_DEFAULT
+            = "https://api.ebay.com/commerce/taxonomy/v1_beta/get_default_category_tree_id?marketplace_id=";
+
+    public static final String TAXONOMY_CATEGORY_SUBTREE_BASE = "https://api.ebay.com/commerce/taxonomy/v1_beta/category_tree/";
+    public static final String TAXONOMY_CATEGORY_SUBTREE_QUERY = "/get_category_subtree?category_id=";
+
+    // status and util related constants
+    public static final String SUCCESS = "Success";
+    public static final Integer SUCCESS_CODE = 0;
+    public static final String FAILURE = "Failure";
+    public static final Integer FAILURE_CODE = -1;
+    public static final String RANGE_PREFIX = "bytes=0-";
+    public static final String RANGE_HEADER = "Range";
+    public static final String CONTENT_RANGE_HEADER = "Content-Range";
+    public static final String LAST_MODIFIED_DATE_HEADER = "Last-Modified";
+    public static final String TOKEN_BEARER_PREFIX = "Bearer ";
+    public static final String TRUE = "true";
+    public static final String FALSE = "false";
+    public static final String ITEM_RESOURCE_SCOPE = "item?feed_scope=";
+    public static final String ITEM_SNAPSHOT_RESOURCE = "item_snapshot?";
+    public static final String QUERY_PARAM_SEPARATOR = "&";
+    public static final String QUERY_CATEGORY_ID = "category_id=";
+    public static final String QUERY_DATE = "date=";
+    public static final String QUERY_SNAPSHOT_DATE = "snapshot_date=";
+    public static final String QUERY_DATE_FORMAT = "yyyyMMdd";
+    public static final String QUERY_SNAPSHOT_DATE_FORMAT = "yyyy-MM-dd'T'HH:00:00.000'Z'";
+    public static final String MARKETPLACE_HEADER = "X-EBAY-C-MARKETPLACE-ID";
+    public static final String CONTENT_TYPE_HEADER = "Content-type";
+    public static final String ACCEPT_HEADER = "Accept";
+
+    public static final String ALL_ACTIVE = "ALL_ACTIVE";
+    public static final String NEWLY_LISTED = "NEWLY_LISTED";
+    public static final Integer NEWLY_LISTED_AVAILABILITY_START_DAY = -14;
+    public static final Integer NEWLY_LISTED_AVAILABILITY_END_DAY = -2;
+
+    public static final Integer ITEM_SNAPSHOT_AVAILABILITY_START_DAY = -7;
+    public static final Integer ITEM_SNAPSHOT_AVAILABILITY_END_HOUR = -2;
+
+    public static final String BOOTSTRAP = "bootstrap";
+    public static final String DAILY = "daily";
+    public static final String SEPARATOR = "\\t";
+    public static final String ITEM_ID = "ItemId";
+
 }

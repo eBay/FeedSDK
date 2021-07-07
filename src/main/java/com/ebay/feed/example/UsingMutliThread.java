@@ -13,9 +13,12 @@
  */
 package com.ebay.feed.example;
 
+import java.util.HashSet;
+import java.util.Set;
 import com.ebay.feed.api.Feed;
 import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.constants.Constants;
+import com.ebay.feed.enums.EnvTypeEnum;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
@@ -26,8 +29,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * Example showing how to download and filter feed files based on item price.
- * The download location is default - current working directory <br>
+ * Example showing how to download and filter feed files based on seller user
+ * names. The download location is default - current working directory <br>
+ * This example downloads the bootstrap feed file for L1 category : 1
+ * (Collectibles) and filters on seller user names. <br>
  * The filtering is performed on the unzipped file. <br>
  * So the sequence of events that are followed is :- <br>
  * - Download feed file <br>
@@ -35,34 +40,50 @@ import org.slf4j.LoggerFactory;
  * - Filter feed file
  * </p>
  *
- * @author shanganesh
  *
  */
-public class FilterByPrice {
+public class UsingMutliThread {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FilterByPrice.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsingMutliThread.class);
 
-    // oauth token
-    static String TOKEN = Constants.TOKEN_BEARER_PREFIX + "v^1.1#i^1#r^0#I^3...";
+    // oauth token - Bearer xxx
+    static String token
+            = Constants.TOKEN_BEARER_PREFIX
+            + "v^1.1#i^1#f...";
 
     // init feed
     static Feed feed = new FeedImpl();
 
-    private static final String CATEGORY = "1281";
-
-    // TODO : Check if the date is within 14 days, before making the call
-    private static final String DATE = "20180708";
-    private static final String SCOPE = "ALL_ACTIVE";
+    private static final String CATEGORY = "625";
+    private static final String DATE = "20210125";
+    private static final String SNAPSHOT_DATE = "2021-01-29T02:00:00.000Z";
+    private static final String SCOPE = "NEWLY_LISTED";
     private static final String MKT = "EBAY_US";
-    private static final String FEEDTYPE = "item";
 
     public static void main(String[] args) {
 
+        new Thread(() -> {
+            String feedType = "item";
+            getUnzipAndFilterFeed(feedType);
+        }).start();
+
+        new Thread(() -> {
+            String feedType = "item_snapshot";
+            getUnzipAndFilterFeed(feedType);
+        }).start();
+    }
+
+    private static void getUnzipAndFilterFeed(String feedType) {
+        LOGGER.info("starting thread for feedType: " + feedType);
         // create request
         FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-        builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(TOKEN)
-                .type(FEEDTYPE);
-
+        if (feedType.equalsIgnoreCase("item_snapshot")) {
+            builder.categoryId(CATEGORY).snapshotDate(SNAPSHOT_DATE).siteId(MKT).token(token)
+                    .type(feedType).env(EnvTypeEnum.SANDBOX.name());
+        } else {
+            builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(token)
+                    .type(feedType).env(EnvTypeEnum.SANDBOX.name());
+        }
         // using null for download directory - defaults to current working directory
         GetFeedResponse getFeedResponse = feed.get(builder.build(), null);
 
@@ -81,17 +102,27 @@ public class FilterByPrice {
 
         // filter
         FeedFilterRequest filterRequest = new FeedFilterRequest();
-
-        // set price lower and upper lomit
-        filterRequest.setPriceLowerLimit(10.0);
-        filterRequest.setPriceUpperLimit(20.0);
+        filterRequest.setItemIds(getItemIds());
         // set input file
         filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
 
         Response response = feed.filter(filterRequest);
         LOGGER.info("Filter status = " + response.getStatusCode());
         LOGGER.info("Filtered file = " + response.getFilePath());
+        LOGGER.info("finished first thread");
+    }
 
+    /**
+     * Get the set of seller user names to filter on
+     *
+     * @return
+     */
+    private static Set<String> getItemIds() {
+        Set<String> itemIdSet = new HashSet<>();
+        itemIdSet.add("132029430107");
+        itemIdSet.add("132676918161");
+        itemIdSet.add("14270967132");
+        return itemIdSet;
     }
 
 }
