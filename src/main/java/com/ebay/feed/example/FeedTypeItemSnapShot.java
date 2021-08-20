@@ -87,6 +87,8 @@ public class FeedTypeItemSnapShot {
         FeedFilterRequest filterRequest = new FeedFilterRequest();
         // set price lower and upper limit
         filterRequest.setPriceLowerLimit(10.0);
+        // filter for item type
+        filterRequest.setType(FEEDTYPE);
         // set input file
         filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
 

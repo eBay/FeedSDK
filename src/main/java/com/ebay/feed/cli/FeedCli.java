@@ -279,6 +279,10 @@ public class FeedCli {
         if (cmd.hasOption("mkt")) {
             filterRequest.setMarketplace(cmd.getOptionValue("mkt"));
         }
+        
+        if (cmd.hasOption("type")) {
+            filterRequest.setType(cmd.getOptionValue("type"));
+        }
 
         if (cmd.hasOption("cl")) {
             credentialFile = cmd.getOptionValue("cl");

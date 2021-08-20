@@ -12,7 +12,8 @@
         "sellerNames":["andy14nq", "gigaparts"],
         "itemLocationCountries":["US", "CN"],
         "priceLowerLimit":10.0,
-        "priceUpperLimit":100.0
+        "priceUpperLimit":100.0,
+		"type":"ITEM_SNAPSHOT"
       }
     },
     {
