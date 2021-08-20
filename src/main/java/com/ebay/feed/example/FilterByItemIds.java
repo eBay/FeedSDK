@@ -19,12 +19,13 @@ import java.util.Set;
 import com.ebay.feed.api.Feed;
 import com.ebay.feed.api.FeedImpl;
 import com.ebay.feed.constants.Constants;
-import com.ebay.feed.enums.FeedTypeEnum;
 import com.ebay.feed.model.feed.download.GetFeedResponse;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest;
 import com.ebay.feed.model.feed.operation.feed.FeedRequest.FeedRequestBuilder;
 import com.ebay.feed.model.feed.operation.filter.FeedFilterRequest;
 import com.ebay.feed.model.feed.operation.filter.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -43,6 +44,9 @@ import com.ebay.feed.model.feed.operation.filter.Response;
  *
  */
 public class FilterByItemIds {
+    
+        private static final Logger LOGGER = LoggerFactory.getLogger(FilterByItemIds.class);
+
 
   // oauth token - Bearer xxx
   static String token =
@@ -54,31 +58,31 @@ public class FilterByItemIds {
 
   private static final String CATEGORY = "1281";
 
-  // TODO : Check if the date is within 14 days, before making the call
   private static final String DATE = "20180805";
   private static final String SCOPE = "ALL_ACTIVE";
   private static final String MKT = "EBAY_US";
+  private static final String FEEDTYPE = "item";
 
   public static void main(String[] args) {
 
     // create request
     FeedRequest.FeedRequestBuilder builder = new FeedRequestBuilder();
-    builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(token)
-        .type(FeedTypeEnum.ITEM);
+   builder.categoryId(CATEGORY).date(DATE).feedScope(SCOPE).siteId(MKT).token(token)
+        .type(FEEDTYPE);
 
     // using null for download directory - defaults to current working directory
     GetFeedResponse getFeedResponse = feed.get(builder.build(), null);
 
     // 0 denotes successful response
     if (getFeedResponse.getStatusCode() != 0) {
-      System.out.println("Exception in downloading feed. Cannot proceed");
+      LOGGER.info("Exception in downloading feed. Cannot proceed");
       return;
     }
     // unzip
     Response unzipOpResponse = feed.unzip(getFeedResponse.getFilePath());
 
     if (unzipOpResponse.getStatusCode() != 0) {
-      System.out.println("Exception in unzipping feed. Cannot proceed");
+      LOGGER.info("Exception in unzipping feed. Cannot proceed");
       return;
     }
 
@@ -89,8 +93,8 @@ public class FilterByItemIds {
     filterRequest.setInputFilePath(unzipOpResponse.getFilePath());
 
     Response response = feed.filter(filterRequest);
-    System.out.println("Filter status = " + response.getStatusCode());
-    System.out.println("Filtered file = " + response.getFilePath());
+    LOGGER.info("Filter status = " + response.getStatusCode());
+    LOGGER.info("Filtered file = " + response.getFilePath());
 
   }
 
