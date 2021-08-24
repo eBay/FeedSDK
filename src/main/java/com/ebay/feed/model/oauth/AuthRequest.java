@@ -17,42 +17,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author shanganesh
  *
  */
 public class AuthRequest {
 
-  private String configFilePath;
-  private List<String> scopes;
+    private String configFilePath;
+    private List<String> scopes;
 
-  public String getConfigFilePath() {
-    return configFilePath;
-  }
-
-  public void setConfigFilePath(String configFilePath) {
-    this.configFilePath = configFilePath;
-  }
-
-  public List<String> getScopes() {
-    return scopes;
-  }
-
-  public void setScopes(List<String> scopes) {
-    this.scopes = scopes;
-  }
-
-  public AuthRequest(String configFilePath, List<String> scopes) {
-    super();
-    this.configFilePath = configFilePath;
-
-    if (scopes == null) {
-      List<String> defaultScopes = new ArrayList<>();
-      defaultScopes.add("https://api.ebay.com/oauth/api_scope");
-      defaultScopes.add("https://api.ebay.com/oauth/api_scope/buy.item.feed");
-      this.scopes = defaultScopes;
-    } else {
-      this.scopes = scopes;
+    public String getConfigFilePath() {
+        return configFilePath;
     }
-  }
+
+    public void setConfigFilePath(String configFilePath) {
+        this.configFilePath = configFilePath;
+    }
+
+    public List<String> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<String> scopes) {
+        this.scopes = scopes;
+    }
+
+    public AuthRequest(String configFilePath, List<String> scopes) {
+        super();
+        this.configFilePath = configFilePath;
+
+        if (scopes == null) {
+            List<String> defaultScopes = new ArrayList<>();
+            defaultScopes.add("https://api.ebay.com/oauth/api_scope");
+            defaultScopes.add("https://api.ebay.com/oauth/api_scope/buy.item.feed");
+            this.scopes = defaultScopes;
+        } else {
+            this.scopes = scopes;
+        }
+    }
 }

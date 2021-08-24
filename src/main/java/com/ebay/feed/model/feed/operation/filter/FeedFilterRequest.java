@@ -42,6 +42,7 @@ import com.ebay.feed.constants.Constants;
  * <li><b>inferredEpids</b> - Set of inferred epids for filtering</li>
  * <li><b>gtins</b> - Set of gtins for filtering</li>
  * <li><b>itemIds</b> - Set of item ids for filtering</li>
+ * <li><b>type</b> - Currently supported - ITEM</li>
  * </ul>
  * </div>
  * 
@@ -50,13 +51,14 @@ import com.ebay.feed.constants.Constants;
  */
 public class FeedFilterRequest {
 
-  /**
+   /**
    * This is needed to calculate the leaf categories for level two and level three This is not used
    * to filter
    */
   private String levelOneCategory;
   private String marketplace;
   private String token;
+  private String type;
 
   private Set<String> leafCategoryIds = new HashSet<>();
   private Set<String> sellerNames;
@@ -218,12 +220,23 @@ public class FeedFilterRequest {
 
     this.token = token;
   }
+  
+  public String getType() {
+      if(type == null || type.isEmpty()){
+        return "item";
+      }
+     return type;
+  }
+
+  public void setType(String type) {
+     this.type = type;
+  }
 
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append("FeedFilterRequest [levelOneCategory=").append(levelOneCategory)
-        .append(", marketplace=").append(marketplace).append(", leafCategoryIds=")
+        .append(", marketplace=").append(marketplace).append(", type=").append(type).append(", leafCategoryIds=")
         .append(leafCategoryIds).append(", sellerNames=").append(sellerNames)
         .append(", itemLocationCountries=").append(itemLocationCountries)
         .append(", priceLowerLimit=").append(priceLowerLimit).append(", priceUpperLimit=")
