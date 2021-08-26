@@ -344,11 +344,11 @@ The structure of the config file
 ```
 An example of using the SDK through a config file is located at 
 
-[Config file based approach example - ConfigFileBasedExample.java](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/ConfigFileBasedExample.java)
+[Config file based approach example - ConfigFileBasedExample.java](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/ConfigFileBasedExample.java)
 
-[Example config file - 1](https://github.com/babar-shzd/FeedSDK/tree/incorporation-snapshot-feed-sdk/sample-config/config-file-download-unzip-filter)
+[Example config file - 1](https://github.com/eBay/FeedSDK/tree/1.1.0/sample-config/config-file-download-unzip-filter)
 
-[Example config file - 2](https://github.com/babar-shzd/FeedSDK/tree/incorporation-snapshot-feed-sdk/sample-config/config-file-filter)
+[Example config file - 2](https://github.com/eBay/FeedSDK/tree/1.1.0/sample-config/config-file-filter)
 
 ### Using java method calls
 
@@ -356,21 +356,21 @@ Samples showing the usage of available operations and filters.
 
 #### Examples
 
-All the examples are located [__here__](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example)
+All the examples are located [__here__](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example)
 
-* [Filter by item location](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
-* [Filter by leaf categories](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
-* [Filter by price](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByPrice.java)
-* [Filter by seller user names](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
-* [Combining multiple filters](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/CombiningFilters.java)
-* [Filter on level three category](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
-* [Filter on EPID](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByEpids.java)
-* [Filter on GTIN](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByGtins.java)
-* [Filter on item IDs](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
-* [Filter by env](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FilterByEnv.java)
-* [Feed type item_snapshot](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/FeedTypeItemSnapShot.java)
-* [Multithreading usage MutliThreading](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/UsingMutliThread.java)
-* [Credential file usage 'Credential'](https://github.com/babar-shzd/FeedSDK/blob/incorporation-snapshot-feed-sdk/src/main/java/com/ebay/feed/example/UsingCredentialFileForSandBoxEnv.java)
+* [Filter by item location](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
+* [Filter by leaf categories](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
+* [Filter by price](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByPrice.java)
+* [Filter by seller user names](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
+* [Combining multiple filters](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/CombiningFilters.java)
+* [Filter on level three category](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
+* [Filter on EPID](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByEpids.java)
+* [Filter on GTIN](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByGtins.java)
+* [Filter on item IDs](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
+* [Filter by env](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByEnv.java)
+* [Feed type item_snapshot](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FeedTypeItemSnapShot.java)
+* [Multithreading usage MutliThreading](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/UsingMutliThread.java)
+* [Credential file usage 'Credential'](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/UsingCredentialFileForSandBoxEnv.java)
 
 
 ---
