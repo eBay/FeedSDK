@@ -56,7 +56,7 @@ You are most welcome to collaborate and enhance the existing code base.
 <dependency>
     <groupId>com.ebay.api</groupId>
     <artifactId>feed-sdk</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.</version>
 </dependency>
 ```
 
@@ -252,7 +252,7 @@ All the capabilities of the SDK can be invoked using the command line.
 
 To see the available options and filters , use '-help'
 ```
-java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -help
+java -jar feed-sdk-1.1.0-RELEASE-uber.jar -help
 usage: Feed SDK CLI
  -help                             display help
  -dt <arg>                         the date when feed file was generated
@@ -306,12 +306,12 @@ java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -dt 20180701 -type ITEM -c1 1281 -sco
 
 Using token For ITEM_SNAPSHOT 
 ```
-java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -sdt 2021-06-10T02:00:00.000Z -type ITEM_SNAPSHOT -env SANDBOX -c1 625 -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -token xxx
+java -jar feed-sdk-1.1.0-RELEASE-uber.jar -sdt 2021-06-10T02:00:00.000Z -type ITEM_SNAPSHOT -env SANDBOX -c1 625 -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -token xxx
 ```
 
 Using credentials file
 ```
-java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -dt 20180801 -c1 11700 -scope ALL_ACTIVE -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -cl <absolute path of credentials file>
+java -jar feed-sdk-1.1.0-RELEASE-uber.jar -dt 20180801 -c1 11700 -scope ALL_ACTIVE -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -cl <absolute path of credentials file>
 ```
 
 ### Using config file driven approach
