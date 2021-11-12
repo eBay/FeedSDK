@@ -3,23 +3,23 @@
   [
   {
       "feedRequest" : {
-        "categoryId":"293",
-        "marketplaceId":"EBAY-US",
-        "date":"20180708",
-        "feedScope":"ALL_ACTIVE",
-        "type":"ITEM"
+        "categoryId":"625",
+        "marketplaceId":"EBAY_US",
+        "snapshotDate":"2021-01-29T02:00:00.000Z",
+        "type":"ITEM_SNAPSHOT"
       },
       "filterRequest": {
         "sellerNames":["andy14nq", "gigaparts"],
         "itemLocationCountries":["US", "CN"],
         "priceLowerLimit":10.0,
-        "priceUpperLimit":100.0
+        "priceUpperLimit":100.0,
+		"type":"ITEM_SNAPSHOT"
       }
     },
     {
       "feedRequest" : {
         "categoryId":"1",
-        "marketplaceId":"EBAY-US",
+        "marketplaceId":"EBAY_US",
         "date":"20180708",
         "feedScope":"ALL_ACTIVE",
         "type":"ITEM"
@@ -35,7 +35,7 @@
     {
       "feedRequest" : {
         "categoryId":"1281",
-        "marketplaceId":"EBAY-US",
+        "marketplaceId":"EBAY_US",
         "date":"20180708",
         "feedScope":"ALL_ACTIVE",
         "type":"ITEM"
@@ -52,7 +52,7 @@
      {
       "feedRequest" : {
         "categoryId":"11232",
-        "marketplaceId":"EBAY-US",
+        "marketplaceId":"EBAY_US",
         "date":"20180708",
         "feedScope":"ALL_ACTIVE",
         "type":"ITEM"
@@ -66,7 +66,7 @@
       {
       "feedRequest" : {
         "categoryId":"220",
-        "marketplaceId":"EBAY-US",
+        "marketplaceId":"EBAY_US",
         "date":"20180708",
         "feedScope":"ALL_ACTIVE",
         "type":"ITEM"

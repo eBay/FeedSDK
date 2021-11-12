@@ -2,7 +2,7 @@
 
 Feed SDK
 ==========
-Java SDK for downloading and filtering item feed files
+Java SDK for downloading and filtering item and snapshot feed files
 
 Table of contents
 ==========
@@ -34,9 +34,9 @@ Table of contents
 
 # Summary
 
-The item feed files provide a rich set of data regarding active ebay listings. The feed files for any supported marketplace can be downloaded through the feed API.
+The item and snapshot feed files provide a rich set of data regarding active ebay listings. The feed files for any supported marketplace can be downloaded through the feed API.
 
-However, since the volume of data is large, the download operation is performed in chunks, which may be cumbersome.
+However, since the volume of data is large, the download operation is performed in chunks, which may be cumbersome. 
 
 The feed SDK abstracts all the complexities and provides a very simple interface to -
 * [Download](#downloading-feed-files) 
@@ -52,11 +52,11 @@ You are most welcome to collaborate and enhance the existing code base.
 ## Add as maven dependency
 
 ```
-<!-- https://mvnrepository.com/artifact/com.ebay.api/feed-sdk -->
+<!--  -->
 <dependency>
     <groupId>com.ebay.api</groupId>
     <artifactId>feed-sdk</artifactId>
-    <version>1.0.1.beta-RELEASE</version>
+    <version>1.1.0-RELEASE</version>
 </dependency>
 ```
 
@@ -70,7 +70,7 @@ This should generate an uber jar with the following naming convention
 __feed-sdk-{version}-uber.jar__
 
 ## Downloading feed files
-Since the feed API supports feed files which may be as big as 5 GB, there is a capability which was built into the system to download the file in chunks of 100 MB.
+Since the feed API supports feed files which may be as big as 5 GB, there is a capability which was built into the system to download the file in chunks of 100 MB and have resume capability in a case if token get expired.
 
 The SDK abstracts the complexity involved in calculating the request header '__range__' based on the response header '__content-range__'.
 
@@ -85,12 +85,23 @@ builder.feedScope("ALL_ACTIVE")
 	.categoryId("1")
  	.siteId("EBAY_US")
 	.token(<TOKEN>)
-	.type(FeedTypeEnum.ITEM);
+	.type("ITEM");
 
 Feed feed = new FeedImpl();
 
-GetFeedResponse response = feed.get(builder.build(), null);
-    
+GetFeedResponse response = feed.get(builder.build(), null, null); 
+ 
+```
+
+### Credential File Location
+
+The default download location is the current working directory.
+The credential config file location can be changed by specifying the optional 'credentialConfigFilePath' parameter in the feed method.
+For example, credentials.yaml location __sample-credentials/credentials.yaml__ -  
+
+```
+
+feed.get(builder.build(), null, "sample-credentials/credentials.yaml");
 ```
 The __GetFeedResponse.filePath__ denotes the location where the file was downloaded.
 
@@ -101,6 +112,7 @@ The download location can be changed by specifying the optional 'downloadDirecto
 For example, to download to the location __/tmp/feed__ - 
 
 ```
+
 feed.get(builder.build(), "/tmp/feed");
 ```
 ---
@@ -240,10 +252,11 @@ All the capabilities of the SDK can be invoked using the command line.
 
 To see the available options and filters , use '-help'
 ```
-java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -help
+java -jar feed-sdk-1.1.0-RELEASE-uber.jar -help
 usage: Feed SDK CLI
  -help                             display help
  -dt <arg>                         the date when feed file was generated
+ -sdt <arg>                        the snapshot_date when feed file was generated
  -c1 <arg>                         the l1 category id of the feed file
  -scope <arg>                      the feed scope. Available scopes are
                                    ALL_ACTIVE or NEWLY_LISTED
@@ -279,19 +292,26 @@ usage: Feed SDK CLI
                                    located
  -authscopes,--oauthscopes <arg>   list of scopes
  -env <arg>   					   Environment Type. Supported Environments are SANDBOX and PRODUCTION
+ -type <arg>   					   Supported feed types are ITEM and ITEM_SNAPSHOT
+ 
 
 ```
 
 For example, to use the command line options to download, unzip and filter feed files
 
-Using token
+Using token For Item
 ```
-java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -dt 20180701 -c1 1281 -scope ALL_ACTIVE -lf 46310 177789 -mkt EBAY_US -c3f 177792 116381 -pricelf 2 -priceuf 100 -locf US CN -token xxx
+java -jar feed-sdk-1.1.0-SNAPSHOT-uber.jar -dt 20180701 -type ITEM -c1 1281 -scope ALL_ACTIVE -lf 46310 177789 -mkt EBAY_US -c3f 177792 116381 -pricelf 2 -priceuf 100 -locf US CN -token xxx
+```
+
+Using token For ITEM_SNAPSHOT 
+```
+java -jar feed-sdk-1.1.0-RELEASE-uber.jar -sdt 2021-06-10T02:00:00.000Z -type ITEM_SNAPSHOT -env SANDBOX -c1 625 -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -token xxx
 ```
 
 Using credentials file
 ```
-java -jar feed-sdk-1.0.0.beta-RELEASE-uber.jar -dt 20180801 -c1 11700 -scope ALL_ACTIVE -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -cl <absolute path of credentials file>
+java -jar feed-sdk-1.1.0-RELEASE-uber.jar -dt 20180801 -c1 11700 -scope ALL_ACTIVE -mkt EBAY_US -pricelf 2 -priceuf 100 -locf US CN -cl <absolute path of credentials file>
 ```
 
 ### Using config file driven approach
@@ -324,11 +344,11 @@ The structure of the config file
 ```
 An example of using the SDK through a config file is located at 
 
-[Config file based approach example - ConfigFileBasedExample.java](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/ConfigFileBasedExample.java)
+[Config file based approach example - ConfigFileBasedExample.java](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/ConfigFileBasedExample.java)
 
-[Example config file - 1](https://github.com/eBay/FeedSDK/blob/master/sample-config/config-file-download-unzip-filter)
+[Example config file - 1](https://github.com/eBay/FeedSDK/tree/1.1.0/sample-config/config-file-download-unzip-filter)
 
-[Example config file - 2](https://github.com/eBay/FeedSDK/blob/master/sample-config/config-file-filter)
+[Example config file - 2](https://github.com/eBay/FeedSDK/tree/1.1.0/sample-config/config-file-filter)
 
 ### Using java method calls
 
@@ -336,18 +356,21 @@ Samples showing the usage of available operations and filters.
 
 #### Examples
 
-All the examples are located [__here__](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example)
+All the examples are located [__here__](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example)
 
-* [Filter by item location](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
-* [Filter by leaf categories](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
-* [Filter by price](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByPrice.java)
-* [Filter by seller user names](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
-* [Combining multiple filters](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/CombiningFilters.java)
-* [Filter on level three category](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
-* [Filter on EPID](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEpids.java)
-* [Filter on GTIN](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByGtins.java)
-* [Filter on item IDs](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
-* [Filter by 'env'](https://github.com/eBay/FeedSDK/tree/master/src/main/java/com/ebay/feed/example/FilterByEnv.java)
+* [Filter by item location](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByItemLocation.java)
+* [Filter by leaf categories](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByLeafCategories.java)
+* [Filter by price](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByPrice.java)
+* [Filter by seller user names](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterBySellerUserNames.java)
+* [Combining multiple filters](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/CombiningFilters.java)
+* [Filter on level three category](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByLevelThreeCategory.java)
+* [Filter on EPID](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByEpids.java)
+* [Filter on GTIN](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByGtins.java)
+* [Filter on item IDs](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByItemIds.java)
+* [Filter by env](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FilterByEnv.java)
+* [Feed type item_snapshot](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/FeedTypeItemSnapShot.java)
+* [Multithreading usage MutliThreading](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/UsingMutliThread.java)
+* [Credential file usage 'Credential'](https://github.com/eBay/FeedSDK/blob/1.1.0/src/main/java/com/ebay/feed/example/UsingCredentialFileForSandBoxEnv.java)
 
 
 ---
@@ -368,6 +391,7 @@ All the examples are located [__here__](https://github.com/eBay/FeedSDK/tree/mas
 * Ensure there is enough storage for unzipped files
 * Ensure that the log and file storage directories have appropriate write permissions
 * In case of failure in downloading due to network issues, the process needs to start again. There is no capability at the moment, to resume.
+* The credentials need to be set in the credentials.yml to avail resume capability.
 
 ## License
 
