@@ -10,7 +10,6 @@ Change log for Feed SDK which helps to download and filter the item feed files.
 * [1.1.0-RELEASE](#1.1.0-RELEASE)
 
 # 1.1.0-RELEASE (2021/09/03)
-[Full Changelog](https://github.com/eBay/FeedSDK/compare/1.1.0-RELEASE...1.1.0-RELEASE)
 Enhancement Requests:
 * Updated sdk with item snapshot feature support 
 
