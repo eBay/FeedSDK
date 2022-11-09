@@ -24,7 +24,7 @@ public class Constants {
   public static final String FEED_API_SANDBOX_BASE = "https://api.sandbox.ebay.com/buy/feed/v1_beta/";
   
   // max content that can be downloaded in one request, in bytes
-  public static final Long PROD_CHUNK_SIZE = 104857600L;
+  public static final Long PROD_CHUNK_SIZE = 50000000L;
   public static final Long SANDBOX_CHUNK_SIZE = 10485760L;
   
   // timeout for http client
