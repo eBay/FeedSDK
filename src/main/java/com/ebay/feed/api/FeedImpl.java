@@ -370,7 +370,8 @@ public class FeedImpl implements Feed {
       outStream.flush();
       outStream.close();
       is.close();
-
+      String rlogId = response.header(Constants.RLOG_ID);
+      LOGGER.debug("RlogId from API response is {}", rlogId);
       String lastModifiedHeader = response.header(Constants.LAST_MODIFIED_DATE_HEADER);
       String lastModifiedDate = null;
       if(!StringUtils.isEmpty(lastModifiedHeader)){
